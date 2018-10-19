@@ -1,0 +1,47 @@
+﻿body {
+    background-color: #333333;
+}
+
+
+h2 {
+    color: white;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+
+.box-detalhe label {
+    color: #333333;
+}
+
+
+.box-detalhe {
+    background: white;
+    width: 350px;
+    height: 410px;
+    margin: auto;
+    margin-top: 50px;
+    border-radius: 3px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    border-top: 10px solid white;
+}
+
+
+.btn {
+    width: 100px;
+}
+
+
+form {
+    display: inline-block;
+    margin-left: 130px;
+}
+
+
+.titulo-pagina {
+    width: 350px;
+    text-align:center;
+}

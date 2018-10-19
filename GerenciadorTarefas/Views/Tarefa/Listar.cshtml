@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Listagem de tarefas</title>
+
+    <link rel="stylesheet" href="~/Content/Css/reset.css" />
+    <link rel="stylesheet" href="~/Content/Css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="~/Content/Css/listagem-tarefa.css" />
+    <link rel="stylesheet" href="~/Content/Css/barra-navegacao.css" />
+    <link rel="stylesheet" href="~/Content/Css/footer.css" />
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <nav>
+        <div id="all-links-navbar">
+            <a href="/Aluno/Logout" class="link-navbar" id="nav-logout">Logout</a>
+            <a href="/Tarefa/Listar" class="link-navbar" id="nav-listar">Listar</a>
+            <a href="/Tarefa/Form" class="link-navbar" id="nav-cadastrar">Cadastrar</a>
+            <a href="/Tarefa/Index" class="link-navbar" id="nav-buscar">Buscar</a>
+        </div>
+
+        <div id="div-nav-username">
+            <label id="usuario-nome-navbar" class="info-navbar">Olá @ViewBag.Username.</label>
+        </div>
+
+        <label id="data-navbar" class="info-navbar">@ViewBag.DataHoje</label>
+    </nav>
+
+    <div class="container">
+        <h2 class="titulo-pagina">Listagem de tarefas</h2>
+
+        <div class="lista-de-tarefas">
+            @{
+                foreach(var t in ViewBag.Tarefas) {
+
+                    <form action="/Tarefa/Remover" method="POST" class="form-lista-tarefas"
+                          @( ViewBag.Tarefas.Count == 1 ? "style=display:block;margin:0px;" : "" )>
+                        @Html.AntiForgeryToken()
+
+                        <div class="box-detalhe"
+                             @( t.DataLimite < DateTime.Today ? $"style=border-top-color:red;" : $"style=border-top-color:white;" )>
+                            <div class="form-group">
+                                <label>Tipo de tarefa</label>
+                                <input class="form-control" value="@t.TipoDaTarefa" readonly />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Data limite para entrega</label>
+                                <input type="date" class="form-control" value="@t.getDataFormatadaBrowser()" readonly
+                                       @( t.DataLimite == DateTime.Today ? $"style=border-color:#dc3545;" : "" ) />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Descrição</label>
+                                <textarea type="text" class="form-control" rows="3" maxlength="100" readonly>@t.Descricao</textarea>
+                            </div>
+
+                            <input type="hidden" name="id" value="@t.Id" />
+
+                            <a class="btn btn-success" href="#" data-toggle="modal" data-target="#concluirTarefa@(t.Id)">Concluída</a>
+                            <a class="btn btn-primary" href="/Tarefa/Editar/@t.Id">Editar</a>
+
+                            <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#removerTarefa@(t.Id)">Remover</a>
+
+                            <div class="modal fade" id="concluirTarefa@(t.Id)" tabindex="-1" role="dialog">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Concluir tarefa</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Deseja marcar esta tarefa como concluída e remove-la da listagem?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="#" class="btn btn-secondary" data-dismiss="modal">Cancelar</a>
+                                            <a class="btn btn-success" href="/Tarefa/Concluida/@t.Id">Concluir</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="modal fade" id="removerTarefa@(t.Id)" tabindex="-1" role="dialog">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Remover tarefa</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Deseja realmente remover esta tarefa?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="#" class="btn btn-secondary" data-dismiss="modal">Cancelar</a>
+                                            <button class="btn btn-danger" type="submit">Remover</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    if(t.DataLimite == DateTime.Today) {
+                        <script>
+                            alert("Existe tarefa para ser entregue hoje.");
+                        </script>
+                    }
+                }
+            }
+        </div>
+    </div>
+
+    <footer>
+        <span>&copy; Copyright 2018 - Anderson Marques.</span>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+﻿1 - Tarefa
+#1.1 - Terminar funcionalidade de Concluir
+#1.2 - Terminar funcionalidade de Remover
+#1.3 - Terminar funcionalidade de Editar
+
+2 - Aluno
+#2.1 - Proteger todos os endpoints (contexto)
+#2.2 - Trocar query de buscar tarefas para corresponder com o ID do usuário logado
+#2.3 - Botão de logout
+
+3 - Geral
+#3.1 - Trocar estilo de exibição se só houver uma tarefa na lista
+#3.2 - Ajustar todos os links da barra de navegação
+#3.3 - Criar CSS para os links da barra de navegação
+#3.4 - Ajustar exibição da barra vermelha no listagem de tarefas para tarefas com prazo vencido
+#3.5 - Colocar alert para as tarefas do dia
+#3.6 - Fazer footer personalizado
+#3.7 - Janela de confirmação antes de remover uma tarefa
+
+4 - Segurança
+#4.1 - Usar o BCrypt para senha
+#4.2 - Informar campos requeridos e mensagem de erro na view
+#4.3 - Informar que o usuário já existe antes de criar um novo
+#4.4 - Protejet o banco contra SQL Injection
+#4.5 - Criar um novo banco
+
+5 - Correção
+#5.1 - Funcionalidade de update
+#5.2 - Evitar erros 404

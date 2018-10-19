@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Editar tarefa</title>
+
+    <link rel="stylesheet" href="~/Content/Css/reset.css" />
+    <link rel="stylesheet" href="~/Content/Css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="~/Content/Css/nova-tarefa.css" />
+    <link rel="stylesheet" href="~/Content/Css/barra-navegacao.css" />
+    <link rel="stylesheet" href="~/Content/Css/footer.css" />
+</head>
+
+<body>
+
+    <nav>
+        <div id="all-links-navbar">
+            <a href="/Aluno/Logout" class="link-navbar" id="nav-logout">Logout</a>
+            <a href="/Tarefa/Listar" class="link-navbar" id="nav-listar">Listar</a>
+            <a href="/Tarefa/Form" class="link-navbar" id="nav-cadastrar">Cadastrar</a>
+            <a href="/Tarefa/Index" class="link-navbar" id="nav-buscar">Buscar</a>
+        </div>
+
+        <div id="div-nav-username">
+            <label id="usuario-nome-navbar" class="info-navbar">Olá @ViewBag.Username.</label>
+        </div>
+
+        <label id="data-navbar" class="info-navbar">@ViewBag.DataHoje</label>
+    </nav>
+
+    <div class="container">
+        <form action="/Tarefa/Atualizar" method="POST">
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" value="@ViewBag.t.Id" name="Id" />
+
+            <div class="box-detalhe">
+                <h2>Editar tarefa</h2>
+                <div class="form-group">
+                    <label>Tipo de tarefa</label>
+                    <select class="form-control" name="TipoDaTarefa">
+                        <option value="Outro">Outro</option>
+                        <option value="Atividade_Complementar">Atividade complementar</option>
+                        <option value="Trabalho">Trabalho</option>
+                        <option value="Prova">Prova</option>
+                        <option value="DP">DP</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Data limite para entrega</label>
+                    <input type="date" class="form-control" name="DataLimite" value="@ViewBag.t.getDataFormatadaBrowser()" />
+                    <span style="color:red;">@Html.ValidationMessage("erro-data")</span>
+                </div>
+
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <textarea type="text" class="form-control" rows="3" name="Descricao">@ViewBag.t.Descricao</textarea>
+                    <span style="color:red;">@Html.ValidationMessage("erro-descricao")</span>
+                </div>
+
+                <button class="btn btn-success btn-block" type="submit">Salvar alterações</button>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <span>&copy; Copyright 2018 - Anderson Marques.</span>
+    </footer>
+</body>
+
+</html>

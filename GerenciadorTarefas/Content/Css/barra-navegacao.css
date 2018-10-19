@@ -1,0 +1,46 @@
+﻿nav {
+    box-shadow: 0 0 10px 0px black;
+    display: flex;
+    height: 60px;
+    padding: 20px 75px 0px 75px;
+}
+
+label {
+    color: white;
+}
+
+
+
+.link-navbar {
+    color: #a9a9a9;
+    margin-right: 20px;
+}
+
+
+
+#nav-entrar, #nav-logout, #nav-listar, #nav-cadastrar, #nav-buscar {
+    text-decoration: none;
+    color: #a9a9a9;
+}
+
+
+
+#usuario-nome-navbar {
+    text-align: center;
+    width: 180px
+}
+
+
+
+#div-nav-username {
+    max-width: 120px;
+    margin-left: auto;
+}
+
+
+
+#data-navbar {
+    margin-left: auto;
+    min-width: 360px; /*Mesmo tamanho dos links 280px + padding 75px + 5*/
+    text-align: end;
+}

@@ -1,0 +1,32 @@
+﻿footer {
+    height: 60px;
+    box-shadow: 0 0 0 2px black;
+    text-align: center;
+    color: white;
+    padding-top: 17px;
+    background-color: #1d1d1d;
+    
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+
+
+.container{
+    margin-bottom:130px;
+}
+
+
+
+html, body {
+    height: 100%;
+}
+
+
+
+#lista-de-tarefas {
+    min-height: 100%;
+    position: relative;
+    margin-bottom: 150px;
+}

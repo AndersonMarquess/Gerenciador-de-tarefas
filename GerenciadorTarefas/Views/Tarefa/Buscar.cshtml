@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Buscar tarefa</title>
+
+    <link rel="stylesheet" href="~/Content/Css/reset.css" />
+    <link rel="stylesheet" href="~/Content/Css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="~/Content/Css/buscar-tarefa.css" />
+    <link rel="stylesheet" href="~/Content/Css/barra-navegacao.css" />
+    <link rel="stylesheet" href="~/Content/Css/footer.css" />
+
+</head>
+
+<body>
+
+    <nav>
+        <div id="all-links-navbar">
+            <a href="/Aluno/Logout" class="link-navbar" id="nav-logout">Logout</a>
+            <a href="/Tarefa/Listar" class="link-navbar" id="nav-listar">Listar</a>
+            <a href="/Tarefa/Form" class="link-navbar" id="nav-cadastrar">Cadastrar</a>
+            <a href="/Tarefa/Index" class="link-navbar" id="nav-buscar">Buscar</a>
+        </div>
+
+        <div id="div-nav-username">
+            <label id="usuario-nome-navbar" class="info-navbar">Olá @ViewBag.Username.</label>
+        </div>
+
+        <label id="data-navbar" class="info-navbar">@ViewBag.DataHoje</label>
+    </nav>
+
+    <div class="container">
+        <form action="/Tarefa/ListarPorTipo" method="POST">
+            @Html.AntiForgeryToken()
+            <div class="box-detalhe">
+                <h2>Buscar tarefa</h2>
+                <div class="form-group">
+                    <label>Tipo de tarefa</label>
+                    <select class="form-control" name="tipoDaTarefa">
+                        <option value="Atividade_Complementar">Atividade complementar</option>
+                        <option value="Trabalho">Trabalho</option>
+                        <option value="Prova">Prova</option>
+                        <option value="DP">DP</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-success btn-block" type="submit">Buscar</button>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <span>&copy; Copyright 2018 - Anderson Marques.</span>
+    </footer>
+</body>
+
+</html>

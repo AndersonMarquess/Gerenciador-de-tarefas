@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2041
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GerenciadorTarefas", "GerenciadorTarefas\GerenciadorTarefas.csproj", "{AB3E0E51-8B52-4445-BF37-A177B946BDD0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB3E0E51-8B52-4445-BF37-A177B946BDD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB3E0E51-8B52-4445-BF37-A177B946BDD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB3E0E51-8B52-4445-BF37-A177B946BDD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB3E0E51-8B52-4445-BF37-A177B946BDD0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CCFE629E-8FA5-4293-A4F4-9827E48D4BE7}
+	EndGlobalSection
+EndGlobal

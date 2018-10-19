@@ -1,0 +1,23 @@
+﻿body {
+    background-color: #333333;
+}
+
+label, h2 {
+    color: white;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.box-detalhe {
+    background: #55595c;
+    width: 520px;
+    height: 220px;
+    margin: auto;
+    margin-top: 50px;
+    border-radius: 3px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+}

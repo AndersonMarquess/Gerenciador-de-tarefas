@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Entrar</title>
+
+    <link rel="stylesheet" href="~/Content/Css/reset.css" />
+    <link rel="stylesheet" href="~/Content/Css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="~/Content/Css/nova-tarefa.css" />
+    <link rel="stylesheet" href="~/Content/Css/barra-navegacao.css" />
+    <link rel="stylesheet" href="~/Content/Css/footer.css" />
+</head>
+
+<body>
+
+    <nav>
+        <div id="all-links-navbar" style="min-width:260px">
+            <a href="/Aluno/Index" class="link-navbar" id="nav-entrar">Entrar</a>
+        </div>
+
+        <div id="div-nav-username">
+            <label id="usuario-nome-navbar" class="info-navbar">Olá.</label>
+        </div>
+
+        <label id="data-navbar" class="info-navbar">@ViewBag.DataHoje</label>
+    </nav>
+
+    <div class="container">
+        <form action="/Aluno/Entrar" method="POST">
+            @Html.AntiForgeryToken()
+            <div class="box-detalhe" style=" height: 400px;">
+                <h2>Entrar</h2>
+                <div class="form-group">
+                    <label>Login</label>
+                    <input class="form-control" type="text" name="login" />
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input class="form-control" type="password" name="senha" />
+                </div>
+                <label>@Html.ValidationMessage("erro-login")</label>
+                <br />
+                <button class="btn btn-success btn-block" type="submit">Entrar</button>
+                <br />
+                <a href="/Aluno/Form" class="btn btn-primary btn-block">Cadastrar-se</a>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <span>&copy; Copyright 2018 - Anderson Marques.</span>
+    </footer>
+</body>
+
+</html>
