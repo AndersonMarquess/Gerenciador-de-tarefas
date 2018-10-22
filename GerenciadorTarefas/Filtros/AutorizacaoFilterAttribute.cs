@@ -7,15 +7,15 @@ namespace GerenciadorTarefas.Filtros
     public class AutorizacaoFilterAttribute : ActionFilterAttribute {
 
         public override void OnActionExecuting(ActionExecutingContext filterContext) {
-            Aluno aluno = filterContext.HttpContext.Session["usuarioLogado"] as Aluno;
+            Administrador admin = filterContext.HttpContext.Session["usuarioLogado"] as Administrador;
 
-            if(aluno == null) {
+            if(admin == null) {
                 filterContext.Controller.ViewBag.DataHoje = DateTime.Today.ToString("dd/MM/yyyy");
-                filterContext.Result = new RedirectResult("/Aluno/Index");
+                filterContext.Result = new RedirectResult("/Administrador/Index");
             } else {
                 filterContext.Controller.ViewBag.DataHoje = DateTime.Today.ToString("dd/MM/yyyy");
-                filterContext.Controller.ViewBag.Username = aluno.Nome;
-                filterContext.Controller.ViewBag.usuarioID = aluno.Id;
+                filterContext.Controller.ViewBag.Username = admin.Nome;
+                filterContext.Controller.ViewBag.usuarioID = admin.Id;
             }
         }
     }

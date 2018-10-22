@@ -21,9 +21,13 @@
 #4.1 - Usar o BCrypt para senha
 #4.2 - Informar campos requeridos e mensagem de erro na view
 #4.3 - Informar que o usuário já existe antes de criar um novo
-#4.4 - Protejet o banco contra SQL Injection
+#4.4 - Proteger o banco contra SQL Injection
 #4.5 - Criar um novo banco
 
 5 - Correção
 #5.1 - Funcionalidade de update
 #5.2 - Evitar erros 404
+#5.3 - Fazer CRUD de funcionalidade do administrador
+#5.4 - Ajustar Tela de cadastro de administrador
+5.5 - Tela de cadastro de aluno
+5.6 - Tela de listagem de aluno

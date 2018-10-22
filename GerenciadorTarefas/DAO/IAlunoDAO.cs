@@ -2,9 +2,7 @@
 
 namespace GerenciadorTarefas.DAO
 {
-    interface IAlunoDAO {
-        Aluno findByCredenciais(string login);
-
+    interface IAlunoDAO    {
         void insert(Aluno aluno);
 
         void update(Aluno aluno);

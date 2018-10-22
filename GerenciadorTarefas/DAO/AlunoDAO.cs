@@ -1,58 +1,33 @@
-﻿using GerenciadorTarefas.Models;
-using System;
-using System.Data.OleDb;
-
-namespace GerenciadorTarefas.DAO
+﻿namespace GerenciadorTarefas.DAO
 {
-    public class AlunoDAO : IAlunoDAO
+    public class AlunoDAO
     {
 
-        private ConexaoDB dao = ConexaoDB.getInstance();
+        /*
+        SELECT *
 
-        public void delete(int id) {
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"DELETE FROM Alunos WHERE Id = @id";
-                command.Parameters.AddWithValue("@id", id);
+        FROM Alunos AS a,
 
-                dao.executarQuerySemRetorno(command);
-            } catch(Exception) { }
-        }
+            Enderecos AS e,
 
-        public Aluno findByCredenciais(string login) {
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"SELECT * FROM Alunos WHERE Login = @login";
-                command.Parameters.AddWithValue("@login", login);
+            Cidades AS c,
 
-                return dao.queryAluno(command);
-            } catch(Exception) {
-                return null;
-            }
-        }
+            Estados AS est
 
-        public void insert(Aluno aluno) {
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"INSERT INTO Alunos (Nome, Login, Senha) VALUES (@nome, @login, @senha)";
-                command.Parameters.AddWithValue("@nome", aluno.Nome);
-                command.Parameters.AddWithValue("@login", aluno.Login);
-                command.Parameters.AddWithValue("@senha", aluno.Senha);
+        WHERE a.IdEndereco = e.Id
 
-                dao.executarQuerySemRetorno(command);
-            } catch(Exception) { }
-        }
+         AND e.IdCidade = c.Id
 
-        public void update(Aluno aluno) {
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"UPDATE Alunos SET Nome = @nome, Login = @login, Senha = @senha";
-                command.Parameters.AddWithValue("@nome", aluno.Nome);
-                command.Parameters.AddWithValue("@login", aluno.Login);
-                command.Parameters.AddWithValue("@senha", aluno.Senha);
+         AND c.IdEstado = est.Id;
+        */
 
-                dao.executarQuerySemRetorno(command);
-            } catch(Exception) { }
-        }
+        //Resposta da query
+        //Aluno.ID, Aluno.Nome, Aluno.Cpf, Aluno.IdEndereco, Aluno.Matricula, Aluno.Serie, Endereco.Id, Endereco.Logradouro, Endereco.Cep, Endereco.Numero, Endereco.Bairro, Endereco.IdCidade, Cidade.Id, Cidade.Nome, Cidade.IdEstado, Estado.Id, Estado.Nome
+        
+        //Resultado de interesse
+        //A.Id, A.Nome, A.Cpf, A.Matricula, A.Serie, 
+        //E.Id, E.Logradouro, E.Cep, E.Numero, E.Bairro,
+        //C.Id, C.Nome
+        //Est.Id, Est.Nome
     }
 }

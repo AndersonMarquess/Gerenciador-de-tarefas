@@ -42,7 +42,8 @@ namespace GerenciadorTarefas.DAO
         private string getConnPath() {
             string provider = @"Provider=Microsoft.Jet.OLEDB.4.0;";
             //string dataSource = @"Data Source=C:\Users\Anderson\Desktop\GerenciadorDB.mdb";
-            string dataSource = @"Data Source=C:\Users\Anderson\TarefasDB.mdb";
+            //string dataSource = @"Data Source=C:\Users\Anderson\TarefasDB.mdb";
+            string dataSource = @"Data Source=C:\Users\Anderson\Desktop\GestaoTarefas.mdb";
 
             return provider + dataSource;
         }
@@ -102,15 +103,44 @@ namespace GerenciadorTarefas.DAO
                 try { 
                     int id = (int)reader[0];
                     string nome = reader[1].ToString();
-                    string login = reader[2].ToString();
-                    string senha = reader[3].ToString();
+                    string cpf = reader[2].ToString();
+                    int idEndereco =(int) reader[3];
+                    int matricula = (int)reader[4];
+                    string serie = reader[5].ToString();
 
-                    aluno = new Aluno(id, nome, login, senha);
+                    //Query endereco
+                    Endereco endereco = new Endereco();
+
+                    aluno = new Aluno(id, nome, cpf, endereco, matricula, serie);
                 } catch(Exception) { }
             }
 
             fecharConexao();
             return aluno;
+        }
+
+        public Administrador queryAdministrador(OleDbCommand command) {
+            abrirConexao();
+
+            Administrador admin = null;
+            command.Connection = _conn;
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            while(reader.Read()) {
+                try {
+                    int id = (int)reader[0];
+                    string nome = reader[1].ToString();
+                    string login = reader[2].ToString();
+                    string senha = reader[3].ToString();
+                    string palavraBackup = reader[4].ToString();
+
+                    admin = new Administrador(nome, login, senha, palavraBackup);
+                } catch(Exception) { }
+            }
+
+            fecharConexao();
+            return admin;
         }
     }
 }

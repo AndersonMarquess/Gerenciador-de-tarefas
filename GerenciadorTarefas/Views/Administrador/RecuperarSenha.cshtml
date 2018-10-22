@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cadastrar-se</title>
+
+    <link rel="stylesheet" href="~/Content/Css/reset.css" />
+    <link rel="stylesheet" href="~/Content/Css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="~/Content/Css/nova-tarefa.css" />
+    <link rel="stylesheet" href="~/Content/Css/barra-navegacao.css" />
+    <link rel="stylesheet" href="~/Content/Css/footer.css" />
+</head>
+
+<body>
+
+    <nav>
+        <div id="all-links-navbar" style="min-width:260px">
+            <a href="/Administrador/Index" class="link-navbar" id="nav-form">Entrar</a>
+        </div>
+
+        <div id="div-nav-username">
+            <label id="usuario-nome-navbar" class="info-navbar">Olá.</label>
+        </div>
+
+        <label id="data-navbar" class="info-navbar">@ViewBag.DataHoje</label>
+    </nav>
+
+    <div class="container">
+        <form action="/Administrador/Atualizar" method="POST">
+            @Html.AntiForgeryToken()
+            <div class="box-detalhe" style=" height: 490px;">
+                <h2>Recuperar senha</h2>
+                <div class="form-group">
+                    <label>Login</label>
+                    <input class="form-control" type="text" name="login" />
+                    <span style="color:red;">@Html.ValidationMessage("erro-login")</span>
+                </div>
+                <div class="form-group">
+                    <label>Palavra de backup</label>
+                    <input class="form-control" type="password" name="palavraBackup" placeholder="Palavra para recuperar a senha." />
+                </div>
+                <div class="form-group">
+                    <label>Nova senha</label>
+                    <input class="form-control" type="password" name="senha" id="senha" />
+                </div>
+                <div class="form-group">
+                    <label>Repetir nova senha</label>
+                    <input class="form-control" type="password" name="senha2" id="senha2" />
+                    <span id="msg"></span>
+                </div>
+                <button id="btn" class="btn btn-success btn-block" type="submit">Recuperar</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script>
+        $('#senha, #senha2').on('keyup', function () {
+            if ($('#senha').val() == $('#senha2').val()) {
+                $('#msg').html('As senhas combinam.').css('color', '#26e426');
+                $('#btn').prop('disabled', false);
+            } else {
+                $('#msg').html('As senhas não combinam.').css('color', 'red');
+                $('#btn').prop('disabled', true);
+            }
+        });
+    </script>
+
+    <footer>
+        <span>&copy; Copyright 2018 - Anderson Marques.</span>
+    </footer>
+
+</body>
+
+</html>
