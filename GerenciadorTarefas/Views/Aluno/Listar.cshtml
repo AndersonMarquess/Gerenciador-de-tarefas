@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="~/Content/Css/listagem-alunos.css" />
 
     <nav>
-        <div id="all-links-navbar">
+        <div id="all-links-navbar" style="display: inline-flex;min-width: 360px;">
             <a href="/Aluno/Logout" class="link-navbar" id="nav-logout">Logout</a>
             <div class="dropdown">
                 <a class="dropdown-toggle link-navbar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -46,7 +46,7 @@
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="/Aluno/Index">Buscar</a>
                     <a class="dropdown-item" href="/Aluno/FormNovoAluno">Cadastrar</a>
-                    <a class="dropdown-item" href="/Tarefa/Listar">Listar</a>
+                    <a class="dropdown-item" href="/Aluno/Listar">Listar</a>
                 </div>
             </div>
         </div>
@@ -94,5 +94,8 @@
 
     </div>
 
+    <footer>
+        <span>&copy; Copyright 2018 - Anderson Marques.</span>
+    </footer>
 </body>
 </html>

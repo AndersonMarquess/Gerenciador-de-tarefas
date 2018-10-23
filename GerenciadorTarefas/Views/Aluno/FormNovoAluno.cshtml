@@ -13,17 +13,40 @@
     <link rel="stylesheet" href="~/Content/Css/nova-tarefa.css" />
     <link rel="stylesheet" href="~/Content/Css/barra-navegacao.css" />
     <link rel="stylesheet" href="~/Content/Css/footer.css" />
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
 </head>
 
 <body>
 
     <nav>
-        <div id="all-links-navbar">
-            <a href="/Administrador/Logout" class="link-navbar" id="nav-logout">Logout</a>
-            <a href="/Tarefa/Listar" class="link-navbar" id="nav-listar">Listar</a>
-            <a href="/Tarefa/Form" class="link-navbar" id="nav-cadastrar">Cadastrar tarefa</a>
-            <a href="/Tarefa/Index" class="link-navbar" id="nav-buscar">Buscar</a>
-            <a href="/Aluno/Cadastrar" class="link-navbar" id="nav-buscar">Cadastrar aluno</a>
+        <div id="all-links-navbar" style="display: inline-flex;min-width: 360px;">
+            <a href="/Aluno/Logout" class="link-navbar" id="nav-logout">Logout</a>
+            <div class="dropdown">
+                <a class="dropdown-toggle link-navbar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                   style="color:#a9a9a9">
+                    Tarefas
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/Tarefa/Index">Buscar</a>
+                    <a class="dropdown-item" href="/Tarefa/Form">Cadastrar</a>
+                    <a class="dropdown-item" href="/Tarefa/Listar">Listar</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a class="dropdown-toggle link-navbar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                   style="color:#a9a9a9">
+                    Alunos
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/Aluno/Index">Buscar</a>
+                    <a class="dropdown-item" href="/Aluno/FormNovoAluno">Cadastrar</a>
+                    <a class="dropdown-item" href="/Aluno/Listar">Listar</a>
+                </div>
+            </div>
         </div>
 
         <div id="div-nav-username">
@@ -32,6 +55,7 @@
 
         <label id="data-navbar" class="info-navbar">@ViewBag.DataHoje</label>
     </nav>
+
 
     <div class="container">
         <form action="/Aluno/Cadastrar" method="POST">
@@ -82,7 +106,6 @@
                     <input type="text" class="form-control" name="Endereco.Bairro" />
                 </div>
                 @* Cidade *@
-                <hr/>
                 <div class="form-group">
                     <label>Cidade</label>
                     <input type="text" class="form-control" name="Endereco.Cidade" />

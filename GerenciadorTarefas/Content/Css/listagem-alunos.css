@@ -24,8 +24,3 @@ td {
     border-radius: 5px;
 }
 
-/*Barra de navegação*/
-#all-links-navbar {
-    min-width: 280px;
-    display: inline-flex;
-}
