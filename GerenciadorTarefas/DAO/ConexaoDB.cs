@@ -41,8 +41,6 @@ namespace GerenciadorTarefas.DAO
 
         private string getConnPath() {
             string provider = @"Provider=Microsoft.Jet.OLEDB.4.0;";
-            //string dataSource = @"Data Source=C:\Users\Anderson\Desktop\GerenciadorDB.mdb";
-            //string dataSource = @"Data Source=C:\Users\Anderson\TarefasDB.mdb";
             string dataSource = @"Data Source=C:\Users\Anderson\Desktop\GestaoTarefas.mdb";
 
             return provider + dataSource;
@@ -65,6 +63,22 @@ namespace GerenciadorTarefas.DAO
 
             fecharConexao();
             return result;
+        }
+
+        internal int queryForId(OleDbCommand command) {
+            abrirConexao();
+            int id = -1;
+
+            command.Connection = _conn;
+            OleDbDataReader reader = command.ExecuteReader();
+            while(reader.Read()) {
+                try {
+                    id = Convert.ToInt32(reader[0].ToString());
+                } catch(Exception) { }
+            }
+
+            fecharConexao();
+            return id;
         }
 
         public List<Tarefa> queryListaTarefa(OleDbCommand command) {
@@ -100,18 +114,20 @@ namespace GerenciadorTarefas.DAO
             OleDbDataReader reader = command.ExecuteReader();
 
             while(reader.Read()) {
-                try { 
+                try {
                     int id = (int)reader[0];
                     string nome = reader[1].ToString();
                     string cpf = reader[2].ToString();
-                    int idEndereco =(int) reader[3];
+                    int idEndereco = (int)reader[3];
                     int matricula = (int)reader[4];
                     string serie = reader[5].ToString();
+                    string sexo = reader[6].ToString();
+                    DateTime dataNascimento = DateTime.Parse(reader[7].ToString());
 
                     //Query endereco
                     Endereco endereco = new Endereco();
 
-                    aluno = new Aluno(id, nome, cpf, endereco, matricula, serie);
+                    aluno = new Aluno(id, nome, cpf, endereco, matricula, serie, sexo, dataNascimento);
                 } catch(Exception) { }
             }
 
@@ -141,6 +157,33 @@ namespace GerenciadorTarefas.DAO
 
             fecharConexao();
             return admin;
+        }
+
+        public List<Aluno> queryListaAlunoSimples(OleDbCommand command) {
+            abrirConexao();
+
+            List<Aluno> alunos = new List<Aluno>();
+            command.Connection = _conn;
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            while(reader.Read()) {
+                try {
+                    int id = (int)reader[0];
+                    string nome = reader[1].ToString();
+                    string cpf = reader[2].ToString();
+                    int idEndereco = (int)reader[3];
+                    int matricula = (int)reader[4];
+                    string serie = reader[5].ToString();
+                    string sexo = reader[6].ToString();
+                    DateTime dataNascimento = DateTime.Parse(reader[7].ToString());
+
+                    alunos.Add(new Aluno(id, nome, cpf, new Endereco(), matricula, serie, sexo, dataNascimento));
+                } catch(Exception) { }
+            }
+
+            fecharConexao();
+            return alunos;
         }
     }
 }

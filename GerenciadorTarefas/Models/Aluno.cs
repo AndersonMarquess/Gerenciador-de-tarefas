@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace GerenciadorTarefas.Models
 {
@@ -7,7 +8,10 @@ namespace GerenciadorTarefas.Models
         public int Matricula { get; set; }
         public string Serie { get; set; }
 
-        public Aluno(int id, string nome, string cpf, Endereco endereco, int matricula, string serie): base(id, nome, cpf, endereco) {
+        public Aluno() { }
+
+        public Aluno(int id, string nome, string cpf, Endereco endereco, int matricula, string serie, string sexo, DateTime dataNascimento): 
+            base(id, nome, cpf, endereco, sexo, dataNascimento) {
             Matricula = matricula;
             Serie = serie;
         }

@@ -94,6 +94,7 @@
     <Content Include="Content\Css\buscar-tarefa.css" />
     <Content Include="Content\Css\barra-navegacao.css" />
     <Content Include="Content\Css\footer.css" />
+    <Content Include="Content\Css\listagem-alunos.css" />
     <Content Include="Content\Css\listagem-tarefa.css" />
     <Content Include="Content\Css\nova-tarefa.css" />
     <Content Include="Content\Css\reset.css" />
@@ -101,12 +102,14 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\popper.min.js" />
     <Content Include="TODO.txt" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdministradorController.cs" />
+    <Compile Include="Controllers\AlunoController.cs" />
     <Compile Include="Controllers\TarefaController.cs" />
     <Compile Include="DAO\AdministradorDAO.cs" />
     <Compile Include="DAO\AlunoDAO.cs" />
@@ -139,6 +142,9 @@
     <Content Include="Views\Tarefa\Cadastrar.cshtml" />
     <Content Include="Views\Tarefa\Editar.cshtml" />
     <Content Include="Views\Administrador\RecuperarSenha.cshtml" />
+    <Content Include="Views\Aluno\FormNovoAluno.cshtml" />
+    <Content Include="Views\Aluno\Listar.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

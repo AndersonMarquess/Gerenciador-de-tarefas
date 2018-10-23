@@ -29,5 +29,6 @@
 #5.2 - Evitar erros 404
 #5.3 - Fazer CRUD de funcionalidade do administrador
 #5.4 - Ajustar Tela de cadastro de administrador
-5.5 - Tela de cadastro de aluno
-5.6 - Tela de listagem de aluno
+#5.5 - Tela de cadastro de aluno
+#5.6 - Tela de listagem de aluno
+5.7 - Padronizar barra de navegação

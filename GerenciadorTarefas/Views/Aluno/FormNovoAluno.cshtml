@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Nova tarefa</title>
+
+    <link rel="stylesheet" href="~/Content/Css/reset.css" />
+    <link rel="stylesheet" href="~/Content/Css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="~/Content/Css/nova-tarefa.css" />
+    <link rel="stylesheet" href="~/Content/Css/barra-navegacao.css" />
+    <link rel="stylesheet" href="~/Content/Css/footer.css" />
+</head>
+
+<body>
+
+    <nav>
+        <div id="all-links-navbar">
+            <a href="/Administrador/Logout" class="link-navbar" id="nav-logout">Logout</a>
+            <a href="/Tarefa/Listar" class="link-navbar" id="nav-listar">Listar</a>
+            <a href="/Tarefa/Form" class="link-navbar" id="nav-cadastrar">Cadastrar tarefa</a>
+            <a href="/Tarefa/Index" class="link-navbar" id="nav-buscar">Buscar</a>
+            <a href="/Aluno/Cadastrar" class="link-navbar" id="nav-buscar">Cadastrar aluno</a>
+        </div>
+
+        <div id="div-nav-username">
+            <label id="usuario-nome-navbar" class="info-navbar">Olá @ViewBag.Username.</label>
+        </div>
+
+        <label id="data-navbar" class="info-navbar">@ViewBag.DataHoje</label>
+    </nav>
+
+    <div class="container">
+        <form action="/Aluno/Cadastrar" method="POST">
+            @Html.AntiForgeryToken()
+            <div class="box-detalhe" style="height: 1230px;">
+                <h2>Novo aluno</h2>
+                @*Aluno*@
+                <div class="form-group">
+                    <label>Nome</label>
+                    <input type="text" class="form-control" name="Nome" />
+                </div>
+                <div class="form-group">
+                    <label>Data de nascimento</label>
+                    <input type="date" class="form-control" name="DataNascimento" />
+                </div>
+                <div class="form-group">
+                    <label>Sexo</label>
+                    <input type="text" class="form-control" name="Sexo" />
+                </div>
+                <div class="form-group">
+                    <label>CPF</label>
+                    <input type="number" class="form-control" name="Cpf" />
+                </div>
+                <div class="form-group">
+                    <label>Matricula</label>
+                    <input type="number" class="form-control" name="Matricula" />
+                </div>
+                <div class="form-group">
+                    <label>Serie</label>
+                    <input type="text" class="form-control" name="Serie" />
+                </div>
+                @* Endereco *@
+                <hr/>
+                <div class="form-group">
+                    <label>Logradouro</label>
+                    <input type="text" class="form-control" name="Endereco.Logradouro" />
+                </div>
+                <div class="form-group">
+                    <label>CEP</label>
+                    <input type="number" class="form-control" name="Endereco.Cep" />
+                </div>
+                <div class="form-group">
+                    <label>Numero</label>
+                    <input type="text" class="form-control" name="Endereco.Numero" />
+                </div>
+                <div class="form-group">
+                    <label>Bairro</label>
+                    <input type="text" class="form-control" name="Endereco.Bairro" />
+                </div>
+                @* Cidade *@
+                <hr/>
+                <div class="form-group">
+                    <label>Cidade</label>
+                    <input type="text" class="form-control" name="Endereco.Cidade" />
+                </div>
+                <div class="form-group">
+                    <label>Estado</label>
+                    <input type="text" class="form-control" name="Endereco.Estado" />
+                </div>
+
+                <br/>
+                <button class="btn btn-success btn-block" type="submit" style="margin-bottom: 150px">Cadastrar</button>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <span>&copy; Copyright 2018 - Anderson Marques.</span>
+    </footer>
+</body>
+
+</html>

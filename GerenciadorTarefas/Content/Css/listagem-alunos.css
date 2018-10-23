@@ -1,0 +1,31 @@
+﻿#usuario-nome-navbar {
+    min-width: 200px;
+}
+
+.table thead th {
+    color: white;
+}
+
+h2 {
+    text-align: center;
+    min-width: 300px;
+}
+
+.btn {
+    min-width: 120px;
+}
+
+td {
+    color: white;
+}
+
+.table {
+    background-color: #55595c;
+    border-radius: 5px;
+}
+
+/*Barra de navegação*/
+#all-links-navbar {
+    min-width: 280px;
+    display: inline-flex;
+}
