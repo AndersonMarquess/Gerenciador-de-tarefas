@@ -14,15 +14,22 @@ namespace GerenciadorTarefas.Controllers
         }
 
         public ActionResult FormNovoAluno() {
+            ViewBag.Aluno = new Aluno() {
+                Endereco = new Endereco()
+            };
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Cadastrar(Aluno aluno) {
-            //Verificar aluno
-            dao.insert(aluno);
-            return RedirectToAction("Index", "Tarefa");
+            if(ModelState.IsValid) {
+                dao.insert(aluno);
+                return RedirectToAction("Index", "Tarefa");
+            }
+
+            ViewBag.Aluno = aluno;
+            return View("FormNovoAluno");
         }
 
         public ActionResult Listar() {

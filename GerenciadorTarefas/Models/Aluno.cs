@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GerenciadorTarefas.Models
 {
     public class Aluno: Pessoa
     {
+        [Required, Range(2, 50, ErrorMessage = "O Campo {0} é obrigatório e deve conter entre {1} e {2} caracteres.")]
         public int Matricula { get; set; }
         public string Serie { get; set; }
 

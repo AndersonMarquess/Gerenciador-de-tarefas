@@ -23,7 +23,7 @@
 
     <nav>
         <div id="all-links-navbar" style="display: inline-flex;min-width: 360px;">
-            <a href="/Aluno/Logout" class="link-navbar" id="nav-logout">Logout</a>
+            <a href="/Administrador/Logout" class="link-navbar" id="nav-logout">Logout</a>
             <div class="dropdown">
                 <a class="dropdown-toggle link-navbar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                    style="color:#a9a9a9">
@@ -60,59 +60,61 @@
     <div class="container">
         <form action="/Aluno/Cadastrar" method="POST">
             @Html.AntiForgeryToken()
-            <div class="box-detalhe" style="height: 1230px;">
+            <div class="box-detalhe" style="height: 1280px;">
                 <h2>Novo aluno</h2>
                 @*Aluno*@
                 <div class="form-group">
                     <label>Nome</label>
-                    <input type="text" class="form-control" name="Nome" />
+                    <input type="text" class="form-control" name="Nome" value="@ViewBag.Aluno.Nome"/>
+                    <span style="color:lightcoral">@Html.ValidationMessage("Nome")</span>
                 </div>
                 <div class="form-group">
                     <label>Data de nascimento</label>
-                    <input type="date" class="form-control" name="DataNascimento" />
+                    <input type="date" class="form-control" name="DataNascimento" value="@ViewBag.Aluno.DataNascimento.ToString("yyyy-MM-dd")"/>
                 </div>
                 <div class="form-group">
                     <label>Sexo</label>
-                    <input type="text" class="form-control" name="Sexo" />
+                    <input type="text" class="form-control" name="Sexo" value="@ViewBag.Aluno.Sexo"/>
                 </div>
                 <div class="form-group">
                     <label>CPF</label>
-                    <input type="number" class="form-control" name="Cpf" />
+                    <input type="number" class="form-control" name="Cpf" value="@ViewBag.Aluno.Cpf" min="10000000000" max="99999999999"/>
                 </div>
                 <div class="form-group">
                     <label>Matricula</label>
-                    <input type="number" class="form-control" name="Matricula" />
+                    <input type="number" class="form-control" name="Matricula" value="@ViewBag.Aluno.Matricula"/>
+                    <span style="color:lightcoral">@Html.ValidationMessage("Matricula")</span>
                 </div>
                 <div class="form-group">
                     <label>Serie</label>
-                    <input type="text" class="form-control" name="Serie" />
+                    <input type="text" class="form-control" name="Serie" value="@ViewBag.Aluno.Serie"/>
                 </div>
                 @* Endereco *@
                 <hr/>
                 <div class="form-group">
                     <label>Logradouro</label>
-                    <input type="text" class="form-control" name="Endereco.Logradouro" />
+                    <input type="text" class="form-control" name="Endereco.Logradouro" value="@ViewBag.Aluno.Endereco.Logradouro"/>
                 </div>
                 <div class="form-group">
                     <label>CEP</label>
-                    <input type="number" class="form-control" name="Endereco.Cep" />
+                    <input type="number" class="form-control" name="Endereco.Cep" value="@ViewBag.Aluno.Endereco.Cep"/>
                 </div>
                 <div class="form-group">
                     <label>Numero</label>
-                    <input type="text" class="form-control" name="Endereco.Numero" />
+                    <input type="text" class="form-control" name="Endereco.Numero" value="@ViewBag.Aluno.Endereco.Numero"/>
                 </div>
                 <div class="form-group">
                     <label>Bairro</label>
-                    <input type="text" class="form-control" name="Endereco.Bairro" />
+                    <input type="text" class="form-control" name="Endereco.Bairro" value="@ViewBag.Aluno.Endereco.Bairro"/>
                 </div>
                 @* Cidade *@
                 <div class="form-group">
                     <label>Cidade</label>
-                    <input type="text" class="form-control" name="Endereco.Cidade" />
+                    <input type="text" class="form-control" name="Endereco.Cidade" value="@ViewBag.Aluno.Endereco.Cidade"/>
                 </div>
                 <div class="form-group">
                     <label>Estado</label>
-                    <input type="text" class="form-control" name="Endereco.Estado" />
+                    <input type="text" class="form-control" name="Endereco.Estado" value="@ViewBag.Aluno.Endereco.Estado"/>
                 </div>
 
                 <br/>
