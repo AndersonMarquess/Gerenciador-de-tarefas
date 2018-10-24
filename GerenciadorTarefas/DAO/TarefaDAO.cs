@@ -30,6 +30,19 @@ namespace GerenciadorTarefas.DAO
             }
         }
 
+        public List<DiarioDeNota> findAllByAlunoId(int id) {
+            try {
+                var command = new OleDbCommand();
+                command.CommandText = @"SELECT DiariosDeNota.*, Tarefas.TipoDaTarefa FROM (Alunos INNER JOIN DiariosDeNota ON Alunos.Id = DiariosDeNota.IdAluno) 
+                                        INNER JOIN Tarefas ON (Tarefas.Id = DiariosDeNota.IdTarefa) AND (Alunos.Id = Tarefas.IdAluno)
+                                        WHERE DiariosDeNota.IdAluno = @IdAluno";
+                command.Parameters.AddWithValue("@IdAluno", id);
+                return dao.queryListaNotas(command);
+            } catch(Exception) {
+                return null;
+            }
+        }
+
         public List<Tarefa> findAllByTipo(TipoTarefa tipo, int idAluno) {
             try {
                 var command = new OleDbCommand();

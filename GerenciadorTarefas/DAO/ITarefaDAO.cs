@@ -16,5 +16,7 @@ namespace GerenciadorTarefas.DAO
         void update(Tarefa tarefa);
 
         void delete(int id);
+
+        List<DiarioDeNota> findAllByAlunoId(int id);
     }
 }

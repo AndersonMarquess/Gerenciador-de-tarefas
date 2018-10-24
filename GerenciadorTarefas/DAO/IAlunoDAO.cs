@@ -1,4 +1,5 @@
 ﻿using GerenciadorTarefas.Models;
+using System;
 using System.Collections.Generic;
 
 namespace GerenciadorTarefas.DAO
@@ -11,5 +12,13 @@ namespace GerenciadorTarefas.DAO
         void delete(int id);
 
         List<Aluno> findAll();
+
+        Aluno findById(int id);
+
+        HashSet<DiarioDePresenca> findAllFaltasByAlunoId(int id);
+
+        void addFaltaAluno(DiarioDePresenca diario);
+
+        void removerFaltaByAlunoId(int id, DateTime data);
     }
 }

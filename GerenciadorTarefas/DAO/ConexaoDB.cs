@@ -65,6 +65,30 @@ namespace GerenciadorTarefas.DAO
             return result;
         }
 
+        internal List<DiarioDeNota> queryListaNotas(OleDbCommand command) {
+            abrirConexao();
+
+            var notas = new List<DiarioDeNota>();
+            command.Connection = _conn;
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            while(reader.Read()) {
+                try {
+                    var n = new DiarioDeNota() {
+                        IdAluno = (int)reader[1],
+                        IdTarefa = (int)reader[2],
+                        NotaRecebida = (double)reader[3],
+                        Observacoes = reader[5].ToString()
+                    };
+                    notas.Add(n);
+                } catch(Exception) { }
+            }
+
+            fecharConexao();
+            return notas;
+        }
+
         internal int queryForId(OleDbCommand command) {
             abrirConexao();
             int id = -1;
@@ -124,8 +148,19 @@ namespace GerenciadorTarefas.DAO
                     string sexo = reader[6].ToString();
                     DateTime dataNascimento = DateTime.Parse(reader[7].ToString());
 
-                    //Query endereco
-                    Endereco endereco = new Endereco();
+                    //Endereco
+                    var endereco = new Endereco() {
+                        Id = (int)reader[8],
+                        Logradouro = reader[9].ToString(),
+                        Cep = reader[10].ToString(),
+                        Numero = reader[11].ToString(),
+                        Bairro = reader[12].ToString(),
+                        //13 = IdCidade, 14 = Cidades.Id
+                        Cidade = reader[15].ToString(),
+                        //16 = IdEstado, 17 = Estados.Id
+                        Estado = reader[18].ToString()
+                    };
+
 
                     aluno = new Aluno(id, nome, cpf, endereco, matricula, serie, sexo, dataNascimento);
                 } catch(Exception) { }
@@ -184,6 +219,30 @@ namespace GerenciadorTarefas.DAO
 
             fecharConexao();
             return alunos;
+        }
+
+        public HashSet<DiarioDePresenca> queryListaPresenca(OleDbCommand command) {
+            abrirConexao();
+
+            var presencas = new HashSet<DiarioDePresenca>();
+            command.Connection = _conn;
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            while(reader.Read()) {
+                try {
+
+                    var d = new DiarioDePresenca() {
+                        IdAluno = (int)reader[0],
+                        DataDaFalta = DateTime.Parse(reader[1].ToString())
+                    };
+
+                    presencas.Add(d);
+                } catch(Exception) { }
+            }
+
+            fecharConexao();
+            return presencas;
         }
     }
 }

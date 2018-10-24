@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Informações do aluno</title>
+
+    <link rel="stylesheet" href="~/Content/Css/reset.css" />
+    <link rel="stylesheet" href="~/Content/Css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="~/Content/Css/nova-tarefa.css" />
+    <link rel="stylesheet" href="~/Content/Css/barra-navegacao.css" />
+    <link rel="stylesheet" href="~/Content/Css/footer.css" />
+    <link rel="stylesheet" href="~/Content/Css/Informacoes-aluno.css" />
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <nav>
+        <div id="all-links-navbar" style="display: inline-flex;min-width: 360px;">
+            <a href="/Administrador/Logout" class="link-navbar" id="nav-logout">Logout</a>
+            <div class="dropdown">
+                <a class="dropdown-toggle link-navbar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                   style="color:#a9a9a9">
+                    Tarefas
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/Tarefa/Index">Buscar</a>
+                    <a class="dropdown-item" href="/Tarefa/Form">Cadastrar</a>
+                    <a class="dropdown-item" href="/Tarefa/Listar">Listar</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a class="dropdown-toggle link-navbar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                   style="color:#a9a9a9">
+                    Alunos
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/Aluno/Index">Buscar</a>
+                    <a class="dropdown-item" href="/Aluno/FormNovoAluno">Cadastrar</a>
+                    <a class="dropdown-item" href="/Aluno/Listar">Listar</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="div-nav-username">
+            <label id="usuario-nome-navbar" class="info-navbar">Olá @ViewBag.Username.</label>
+        </div>
+
+        <label id="data-navbar" class="info-navbar">@ViewBag.DataHoje</label>
+    </nav>
+
+
+    <div class="container">
+
+        <h2 style="margin-top: 50px;">Informações do aluno</h2>
+        <table class="table">
+            <thead>
+            <th scope="col">Nome</th>
+            <th scope="col">CPF</th>
+            <th scope="col">Matricula</th>
+            <th scope="col">Série</th>
+            <th scope="col">Data de Nascimento</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@ViewBag.Aluno.Nome</td>
+                    <td>@ViewBag.Aluno.Cpf</td>
+                    <td>@ViewBag.Aluno.Matricula</td>
+                    <td>@ViewBag.Aluno.Serie</td>
+                    <td>@ViewBag.Aluno.DataNascimento.ToString("dd/MM/yyyy")</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Informações do endereço</h2>
+
+        <table class="table">
+            <thead>
+            <th scope="col">Logradouro</th>
+            <th scope="col">CEP</th>
+            <th scope="col">Numero</th>
+            <th scope="col">Bairro</th>
+            <th scope="col">Cidade</th>
+            <th scope="col">Estado</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@ViewBag.Aluno.Endereco.Logradouro</td>
+                    <td>@ViewBag.Aluno.Endereco.Cep</td>
+                    <td>@ViewBag.Aluno.Endereco.Numero</td>
+                    <td>@ViewBag.Aluno.Endereco.Bairro</td>
+                    <td>@ViewBag.Aluno.Endereco.Cidade</td>
+                    <td>@ViewBag.Aluno.Endereco.Estado</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Faltas do aluno</h2>
+        @{
+            foreach(var falta in ViewBag.Faltas) {
+                <div class="row div-info">
+                    <label>Data: @falta.getDataDaFaltaFormatada()</label>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#falta@(falta.GetHashCode())">Remover</button>
+                </div>
+
+                <div class="modal fade" id="falta@(falta.GetHashCode())" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Remover falta</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Deseja realmente remover esta falta?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <form action="/Aluno/RemoverFalta" method="POST">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" value="@falta.IdAluno" name="id" />
+                                    <input type="hidden" value="@falta.DataDaFalta" name="dataFalta" />
+                                    <button class="btn btn-danger" type="submit">Remover falta</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        <h2>Notas do aluno</h2>
+        @{
+            foreach(var tarefa in ViewBag.Tarefas) {
+                <div class="row div-info">
+                    <label>Tipo da tarefa: @tarefa.Observacoes</label>
+                    <label>Nota recebida: @tarefa.NotaRecebida</label>
+                    <button class="btn btn-danger">Remover</button>
+                </div>
+            }
+        }
+    </div>
+
+    <footer>
+        <span>&copy; Copyright 2018 - Anderson Marques.</span>
+    </footer>
+</body>
+</html>

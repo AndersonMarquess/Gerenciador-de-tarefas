@@ -9,24 +9,6 @@ namespace GerenciadorTarefas.DAO
     {
         ConexaoDB dao = ConexaoDB.getInstance();
 
-        /*
-            SELECT * FROM Alunos AS a, Enderecos AS e, Cidades AS c, Estados AS est WHERE a.IdEndereco = e.Id AND e.IdCidade = c.Id AND c.IdEstado = est.Id;
-        */
-
-        /*
-            SELECT Alunos.*, Enderecos.*, Cidades.*, Estados.*
-FROM Estados INNER JOIN ((Cidades INNER JOIN Enderecos ON Cidades.Id = Enderecos.IdCidade) INNER JOIN Alunos ON Enderecos.Id = Alunos.IdEndereco) ON Estados.Id = Cidades.IdEstado;
-         */
-
-        //Resposta da query 1ª query
-        //Aluno.ID, Aluno.Nome, Aluno.Cpf, Aluno.IdEndereco, Aluno.Matricula, Aluno.Serie, Endereco.Id, Endereco.Logradouro, Endereco.Cep, Endereco.Numero, Endereco.Bairro, Endereco.IdCidade, Cidade.Id, Cidade.Nome, Cidade.IdEstado, Estado.Id, Estado.Nome
-
-        //Resultado de interesse
-        //A.Id, A.Nome, A.Cpf, A.Matricula, A.Serie, 
-        //E.Id, E.Logradouro, E.Cep, E.Numero, E.Bairro,
-        //C.Id, C.Nome
-        //Est.Id, Est.Nome
-
         private int inserirEstadoERecuperarId(Endereco endereco) {
             int idEstado = recuperarIdEstado(endereco);
             if(idEstado >= 0)
@@ -119,7 +101,6 @@ FROM Estados INNER JOIN ((Cidades INNER JOIN Enderecos ON Cidades.Id = Enderecos
             return -1;
         }
 
-        //Consegue inserir o estado, inseri a cidade e não recupera seu id causando return nos outros métodos.
         public void insert(Aluno aluno) {
             int idEndereco = inserirEnderecoERecuperarId(aluno.Endereco);
             if(idEndereco == -1)
@@ -165,6 +146,52 @@ FROM Estados INNER JOIN ((Cidades INNER JOIN Enderecos ON Cidades.Id = Enderecos
             } catch(Exception) { }
 
             return null;
+        }
+
+        public Aluno findById(int id) {
+            try {
+                var command = new OleDbCommand();
+                command.CommandText = @"SELECT Alunos.*, Enderecos.*, Cidades.*, Estados.* FROM Estados 
+                                        INNER JOIN ((Cidades INNER JOIN Enderecos ON Cidades.Id = Enderecos.IdCidade) 
+                                        INNER JOIN Alunos ON Enderecos.Id = Alunos.IdEndereco) 
+                                        ON Estados.Id = Cidades.IdEstado WHERE Alunos.Id = @IdAluno";
+
+                command.Parameters.AddWithValue("@IdAluno", id);
+                return dao.queryAluno(command);
+
+            } catch(Exception) { }
+
+            return null;
+        }
+
+        public HashSet<DiarioDePresenca> findAllFaltasByAlunoId(int id) {
+            try {
+                var command = new OleDbCommand();
+                command.CommandText = @"SELECT IdAluno, DataFalta FROM DiariosDePresenca AS ddp WHERE ddp.IdAluno = @IdAluno";
+                command.Parameters.AddWithValue("@IdAluno", id);
+                return dao.queryListaPresenca(command);
+            } catch(Exception) { }
+            return null;
+        }
+
+        public void addFaltaAluno(DiarioDePresenca diario) {
+            try {
+                var command = new OleDbCommand();
+                command.CommandText = @"INSERT INTO DiariosDePresenca (IdAluno, DataFalta) VALUES (@IdAluno, @DataFalta)";
+                command.Parameters.AddWithValue("@IdAluno", diario.IdAluno);
+                command.Parameters.AddWithValue("@DataFalta", diario.DataDaFalta);
+                dao.executarQuerySemRetorno(command);
+            } catch(Exception) { }
+        }
+
+        public void removerFaltaByAlunoId(int id, DateTime data) {
+            try {
+                var command = new OleDbCommand();
+                command.CommandText = @"DELETE FROM DiariosDePresenca WHERE IdAluno = @IdAluno AND DataFalta = @DataFalta";
+                command.Parameters.AddWithValue("@IdAluno", id);
+                command.Parameters.AddWithValue("@DataFalta", data);
+                dao.executarQuerySemRetorno(command);
+            } catch(Exception) { }
         }
     }
 }

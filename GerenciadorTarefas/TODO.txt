@@ -32,7 +32,7 @@
 #5.5 - Tela de cadastro de aluno
 #5.6 - Tela de listagem de aluno
 #5.7 - Padronizar barra de navegação
-5.8 - Adicionar funcionalidade de ver informações do aluno
-5.9 - Adicionar funcionalidade de add falta ao aluno com modal
+#5.8 - Adicionar funcionalidade de ver informações do aluno
+#5.9 - Adicionar funcionalidade de add falta ao aluno com modal
 6.0 - Adicionar funcionalidade de editar aluno com modal
 6.1 - Adicionar funcionalidade de atribuir nota ao aluno

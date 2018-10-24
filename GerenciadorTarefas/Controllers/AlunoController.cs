@@ -1,5 +1,7 @@
 ﻿using GerenciadorTarefas.DAO;
 using GerenciadorTarefas.Models;
+using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace GerenciadorTarefas.Controllers
@@ -7,6 +9,7 @@ namespace GerenciadorTarefas.Controllers
     public class AlunoController : Controller
     {
         IAlunoDAO dao = new AlunoDAO();
+        ITarefaDAO tarefaDAO = new TarefaDAO();
 
         // GET: Aluno
         public ActionResult Index() {
@@ -35,6 +38,43 @@ namespace GerenciadorTarefas.Controllers
         public ActionResult Listar() {
             ViewBag.Alunos = dao.findAll();
             return View();
+        }
+
+        public ActionResult Informacoes(int id = 1) {
+            if(id < 0)
+                return RedirectToAction("Listar");
+
+            Aluno aluno = dao.findById(id);
+
+            HashSet<DiarioDePresenca> faltas = dao.findAllFaltasByAlunoId(id);
+            ViewBag.Faltas = faltas;
+
+            List<DiarioDeNota> notas = tarefaDAO.findAllByAlunoId(id);
+            ViewBag.Tarefas = notas;
+
+            ViewBag.Aluno = aluno;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddFalta(int id) {
+            var d = new DiarioDePresenca() {
+                IdAluno = id,
+                DataDaFalta = DateTime.Parse(DateTime.Now.ToShortDateString())
+            };
+            dao.addFaltaAluno(d);
+
+            return RedirectToAction("Informacoes", id);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RemoverFalta(int id, string dataFalta) {
+            var data = DateTime.Parse(dataFalta);
+            dao.removerFaltaByAlunoId(id, data);
+
+            return RedirectToAction("Informacoes", id);
         }
     }
 }

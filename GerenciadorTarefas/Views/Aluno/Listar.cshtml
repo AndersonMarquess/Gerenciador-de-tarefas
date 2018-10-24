@@ -80,12 +80,35 @@
                             <td>@aluno.Matricula</td>
                             <td>@aluno.Serie</td>
                             <td>
-                                <a class="btn btn-success" href="#">Informações</a>
+                                <a class="btn btn-success" href="/Aluno/Informacoes/@aluno.Id">Informações</a>
                                 <a class="btn btn-primary" href="#">Atribuir Nota</a>
-                                <a class="btn btn-danger" href="#">Atribuir Falta</a>
+                                <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#addFalta@(aluno.Id)">Atribuir Falta</a>
                             </td>
                         </tr>
                     </tbody>
+
+                    <div class="modal fade" id="addFalta@(aluno.Id)" tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Atribuir falta</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Deseja realmente atribuir uma falta a este aluno?
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#" class="btn btn-secondary" data-dismiss="modal">Cancelar</a>
+                                    <form action="/Aluno/AddFalta/@(aluno.Id)" method="POST">
+                                        @Html.AntiForgeryToken()
+                                        <button class="btn btn-danger" type="submit">Atribuir falta</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 }
             }

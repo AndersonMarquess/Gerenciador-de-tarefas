@@ -94,6 +94,7 @@
     <Content Include="Content\Css\buscar-tarefa.css" />
     <Content Include="Content\Css\barra-navegacao.css" />
     <Content Include="Content\Css\footer.css" />
+    <Content Include="Content\Css\Informacoes-aluno.css" />
     <Content Include="Content\Css\listagem-alunos.css" />
     <Content Include="Content\Css\listagem-tarefa.css" />
     <Content Include="Content\Css\nova-tarefa.css" />
@@ -145,6 +146,7 @@
     <Content Include="Views\Aluno\FormNovoAluno.cshtml" />
     <Content Include="Views\Aluno\Listar.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Aluno\Informacoes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
