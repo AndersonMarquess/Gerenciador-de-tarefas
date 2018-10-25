@@ -13,10 +13,6 @@
     <link rel="stylesheet" href="~/Content/Css/nova-tarefa.css" />
     <link rel="stylesheet" href="~/Content/Css/barra-navegacao.css" />
     <link rel="stylesheet" href="~/Content/Css/footer.css" />
-
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <script src="~/Scripts/popper.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -86,11 +82,16 @@
                     <span style="color:red;">@Html.ValidationMessage("erro-descricao")</span>
                 </div>
 
-                <input type="hidden" name="IdAluno" value="@ViewBag.usuarioID" />
+                <input type="hidden" name="IdAdmin" value="@ViewBag.usuarioID" />
                 <button class="btn btn-success btn-block" type="submit">Cadastrar</button>
             </div>
         </form>
     </div>
+
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
 
     <footer>
         <span>&copy; Copyright 2018 - Anderson Marques.</span>

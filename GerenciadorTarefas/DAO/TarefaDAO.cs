@@ -19,11 +19,11 @@ namespace GerenciadorTarefas.DAO
             } catch(Exception) { }
         }
 
-        public List<Tarefa> findAll(int idAluno) {
+        public List<Tarefa> findAll(int idAdmin) {
             try {
                 var command = new OleDbCommand();
-                command.CommandText = @"SELECT * FROM Tarefas WHERE IdAluno = @idAluno";
-                command.Parameters.AddWithValue("@idAluno", idAluno);
+                command.CommandText = @"SELECT * FROM Tarefas WHERE IdAdmin = @idAdmin";
+                command.Parameters.AddWithValue("@idAdmin", idAdmin);
                 return dao.queryListaTarefa(command);
             } catch(Exception) {
                 return null;
@@ -33,17 +33,19 @@ namespace GerenciadorTarefas.DAO
         public List<DiarioDeNota> findAllByAlunoId(int id) {
             try {
                 var command = new OleDbCommand();
-                command.CommandText = @"SELECT DiariosDeNota.*, Tarefas.TipoDaTarefa FROM (Alunos INNER JOIN DiariosDeNota ON Alunos.Id = DiariosDeNota.IdAluno) 
-                                        INNER JOIN Tarefas ON (Tarefas.Id = DiariosDeNota.IdTarefa) AND (Alunos.Id = Tarefas.IdAluno)
-                                        WHERE DiariosDeNota.IdAluno = @IdAluno";
-                command.Parameters.AddWithValue("@IdAluno", id);
+                //command.CommandText = @"SELECT DiariosDeNota.*, Tarefas.TipoDaTarefa FROM (Alunos INNER JOIN DiariosDeNota ON Alunos.Id = DiariosDeNota.IdAluno) 
+                //                        INNER JOIN Tarefas ON (Tarefas.Id = DiariosDeNota.IdTarefa) AND (Alunos.Id = Tarefas.IdAluno)
+                //                        WHERE DiariosDeNota.IdAluno = @IdAluno";
+                //command.Parameters.AddWithValue("@IdAluno", id);
+
+                //Fazer query que busca o id da tarefa, a data do recebimento da nota, a nota recebida, e o tipo de tarefa.
                 return dao.queryListaNotas(command);
             } catch(Exception) {
                 return null;
             }
         }
 
-        public List<Tarefa> findAllByTipo(TipoTarefa tipo, int idAluno) {
+        public List<Tarefa> findAllByTipo(TipoTarefa tipo) {
             try {
                 var command = new OleDbCommand();
                 command.CommandText = @"SELECT * FROM Tarefas WHERE TipoDaTarefa = @tipo";
@@ -69,11 +71,11 @@ namespace GerenciadorTarefas.DAO
         public void insert(Tarefa tarefa) {
             try {
                 var command = new OleDbCommand();
-                command.CommandText = @"INSERT INTO Tarefas (TipoDaTarefa, DataLimite, Descricao, IdAluno) VALUES (@tipo, @dataLimite, @descricao, @idAluno)";
+                command.CommandText = @"INSERT INTO Tarefas (TipoDaTarefa, DataLimite, Descricao, IdAdmin) VALUES (@tipo, @dataLimite, @descricao, @idAdmin)";
                 command.Parameters.AddWithValue("@tipo", tarefa.TipoDaTarefa.ToString());
                 command.Parameters.AddWithValue("@dataLimite", tarefa.getDataFormatada());
                 command.Parameters.AddWithValue("@descricao", tarefa.Descricao);
-                command.Parameters.AddWithValue("@idAluno", tarefa.IdAluno);
+                command.Parameters.AddWithValue("@idAdmin", tarefa.IdAdmin);
                 dao.executarQuerySemRetorno(command);
             } catch(Exception) { }
         }

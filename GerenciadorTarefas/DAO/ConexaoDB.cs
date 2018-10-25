@@ -142,27 +142,31 @@ namespace GerenciadorTarefas.DAO
                     int id = (int)reader[0];
                     string nome = reader[1].ToString();
                     string cpf = reader[2].ToString();
-                    int idEndereco = (int)reader[3];
+                    //3 = IdEndereco
                     int matricula = (int)reader[4];
                     string serie = reader[5].ToString();
                     string sexo = reader[6].ToString();
                     DateTime dataNascimento = DateTime.Parse(reader[7].ToString());
+                    string telefone = reader[8].ToString();
+                    string email = reader[9].ToString();
 
-                    //Endereco
+                    //Endereço
                     var endereco = new Endereco() {
-                        Id = (int)reader[8],
-                        Logradouro = reader[9].ToString(),
-                        Cep = reader[10].ToString(),
-                        Numero = reader[11].ToString(),
-                        Bairro = reader[12].ToString(),
-                        //13 = IdCidade, 14 = Cidades.Id
-                        Cidade = reader[15].ToString(),
-                        //16 = IdEstado, 17 = Estados.Id
-                        Estado = reader[18].ToString()
+                        Id = (int)reader[10],
+                        Logradouro = reader[11].ToString(),
+                        Cep = reader[12].ToString(),
+                        Numero = reader[13].ToString(),
+                        Bairro = reader[14].ToString(),
+                        //15 = IdCidade, 16 = Cidades.Id
+                        Cidade = reader[17].ToString(),
+                        //18 = IdEstado, 19 = Estados.Id
+                        Estado = reader[20].ToString()
                     };
 
-
                     aluno = new Aluno(id, nome, cpf, endereco, matricula, serie, sexo, dataNascimento);
+                    aluno.Telefone = telefone;
+                    aluno.Email = email;
+
                 } catch(Exception) { }
             }
 
@@ -207,13 +211,20 @@ namespace GerenciadorTarefas.DAO
                     int id = (int)reader[0];
                     string nome = reader[1].ToString();
                     string cpf = reader[2].ToString();
-                    int idEndereco = (int)reader[3];
+                    //3 - idEndereco
                     int matricula = (int)reader[4];
                     string serie = reader[5].ToString();
                     string sexo = reader[6].ToString();
                     DateTime dataNascimento = DateTime.Parse(reader[7].ToString());
+                    string telefone = reader[8].ToString();
+                    string email = reader[9].ToString();
 
-                    alunos.Add(new Aluno(id, nome, cpf, new Endereco(), matricula, serie, sexo, dataNascimento));
+                    var a = new Aluno(id, nome, cpf, new Endereco(), matricula, serie, sexo, dataNascimento);
+                    a.Telefone = telefone;
+                    a.Email = email;
+
+                    alunos.Add(a);
+                    
                 } catch(Exception) { }
             }
 

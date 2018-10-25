@@ -18,27 +18,27 @@ namespace GerenciadorTarefas.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ListarPorTipo(string tipoDaTarefa) {
-            Aluno aluno = Session["usuarioLogado"] as Aluno;
+            var aluno = Session["usuarioLogado"] as Administrador;
 
             if(tipoDaTarefa == null)
                 return View("Buscar");
 
             TipoTarefa tipo = (TipoTarefa)Enum.Parse(typeof(TipoTarefa), tipoDaTarefa);
-            var tarefas = dao.findAllByTipo(tipo, aluno.Id);
+            var tarefas = dao.findAllByTipo(tipo);
             ViewBag.Tarefas = tarefas;
 
             return View("Listar");
         }
 
         public ActionResult Listar() {
-            Aluno aluno = Session["usuarioLogado"] as Aluno;
+            var aluno = Session["usuarioLogado"] as Administrador;
             ViewBag.Tarefas = dao.findAll(aluno.Id);
 
             return View();
         }
 
         public ActionResult Form() {
-            Aluno aluno = Session["usuarioLogado"] as Aluno;
+            var aluno = Session["usuarioLogado"] as Administrador;
 
             if(aluno == null)
                 return RedirectToAction("Index", "Aluno");

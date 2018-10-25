@@ -8,7 +8,7 @@ namespace GerenciadorTarefas.Models
         public TipoTarefa TipoDaTarefa { get; set; }
         public DateTime DataLimite { get; set; }
         public string Descricao { get; set; }
-        public int IdAluno { get; set; }
+        public int IdAdmin { get; set; }
 
         public Tarefa() { }
 
@@ -18,7 +18,7 @@ namespace GerenciadorTarefas.Models
                 TipoDaTarefa = (TipoTarefa)Enum.Parse(typeof(TipoTarefa), tipoDaTarefa);
                 DataLimite = dataLimite;
                 Descricao = descricao;
-                IdAluno = IdAluno;
+                IdAdmin = IdAdmin;
             } catch (Exception e) {
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace GerenciadorTarefas.Controllers
 {
+    //[AutorizacaoFilter]
     public class AlunoController : Controller
     {
         IAlunoDAO dao = new AlunoDAO();
@@ -40,7 +41,7 @@ namespace GerenciadorTarefas.Controllers
             return View();
         }
 
-        public ActionResult Informacoes(int id = 1) {
+        public ActionResult Informacoes(int id = 2) {
             if(id < 0)
                 return RedirectToAction("Listar");
 
@@ -49,8 +50,8 @@ namespace GerenciadorTarefas.Controllers
             HashSet<DiarioDePresenca> faltas = dao.findAllFaltasByAlunoId(id);
             ViewBag.Faltas = faltas;
 
-            List<DiarioDeNota> notas = tarefaDAO.findAllByAlunoId(id);
-            ViewBag.Tarefas = notas;
+            //List<DiarioDeNota> notas = tarefaDAO.findAllByAlunoId(id);
+            //ViewBag.Tarefas = notas;
 
             ViewBag.Aluno = aluno;
             return View();
@@ -75,6 +76,32 @@ namespace GerenciadorTarefas.Controllers
             dao.removerFaltaByAlunoId(id, data);
 
             return RedirectToAction("Informacoes", id);
+        }
+
+        public ActionResult Editar(int id) {
+            var aluno = dao.findById(id);
+            ViewBag.Aluno = aluno;
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Atualizar(Aluno aluno) {
+            if(ModelState.IsValid) {
+                dao.update(aluno);
+                return RedirectToAction("Listar");
+            }
+
+            ViewBag.Aluno = aluno;
+            return View("Editar");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Remover(int id) {
+            dao.delete(id);
+            return RedirectToAction("Listar");
         }
     }
 }

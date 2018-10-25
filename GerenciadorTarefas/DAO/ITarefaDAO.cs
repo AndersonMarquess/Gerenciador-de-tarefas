@@ -5,7 +5,7 @@ namespace GerenciadorTarefas.DAO
 {
     interface ITarefaDAO {
 
-        List<Tarefa> findAllByTipo(TipoTarefa tipo, int id);
+        List<Tarefa> findAllByTipo(TipoTarefa tipo);
 
         List<Tarefa> findAll(int id);
 

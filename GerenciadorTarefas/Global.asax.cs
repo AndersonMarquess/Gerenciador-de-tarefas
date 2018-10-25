@@ -14,10 +14,11 @@ namespace GerenciadorTarefas
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
 
-        protected void Application_Error(object sender, EventArgs e) {
-            Exception exception = Server.GetLastError();
-            Server.ClearError();
-            Response.Redirect("/Tarefa/Index");
-        }
+        //Redireciona qualquer exception para o contexto escolhido
+        //protected void Application_Error(object sender, EventArgs e) {
+        //    Exception exception = Server.GetLastError();
+        //    Server.ClearError();
+        //    Response.Redirect("/Tarefa/Index");
+        //}
     }
 }

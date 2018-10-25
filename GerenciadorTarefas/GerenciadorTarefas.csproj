@@ -103,6 +103,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery.mask.min.js" />
     <Content Include="Scripts\popper.min.js" />
     <Content Include="TODO.txt" />
     <Content Include="Web.config" />
@@ -147,6 +148,7 @@
     <Content Include="Views\Aluno\Listar.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Aluno\Informacoes.cshtml" />
+    <Content Include="Views\Aluno\Editar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

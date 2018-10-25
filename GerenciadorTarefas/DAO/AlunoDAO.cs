@@ -9,107 +9,15 @@ namespace GerenciadorTarefas.DAO
     {
         ConexaoDB dao = ConexaoDB.getInstance();
 
-        private int inserirEstadoERecuperarId(Endereco endereco) {
-            int idEstado = recuperarIdEstado(endereco);
-            if(idEstado >= 0)
-                return idEstado;
-
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"INSERT INTO Estados (Nome) VALUES (@Nome)";
-                command.Parameters.AddWithValue("@Nome", endereco.Estado);
-                dao.executarQuerySemRetorno(command);
-                return recuperarIdEstado(endereco);
-            } catch(Exception) { }
-            return -1;
-        }
-
-        private int recuperarIdEstado(Endereco endereco) {
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"SELECT * FROM Estados WHERE Nome = @Nome";
-                command.Parameters.AddWithValue("@Nome", endereco.Estado);
-                return dao.queryForId(command);
-            } catch(Exception) { }
-            return -1;
-        }
-
-        private int inserirCidadeERecuperarId(Endereco endereco) {
-            int idCidade = recuperarIdCidade(endereco);
-            if(idCidade >= 0)
-                return idCidade;
-
-            int idEstado = inserirEstadoERecuperarId(endereco);
-            if(idEstado == -1)
-                return -1;
-
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"INSERT INTO Cidades (Nome, IdEstado) VALUES (@Nome, @IdEstado)";
-                command.Parameters.AddWithValue("@Nome", endereco.Cidade);
-                command.Parameters.AddWithValue("@IdEstado", idEstado);
-                dao.executarQuerySemRetorno(command);
-
-                return recuperarIdCidade(endereco);
-            } catch(Exception) { }
-            return -1;
-        }
-
-        private int recuperarIdCidade(Endereco endereco) {
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"SELECT * FROM Cidades WHERE Nome = @Nome";
-                command.Parameters.AddWithValue("@Nome", endereco.Cidade);
-                return dao.queryForId(command);
-            } catch(Exception) { }
-            return -1;
-        }
-
-        private int inserirEnderecoERecuperarId(Endereco endereco) {
-            int idCidade = inserirCidadeERecuperarId(endereco);
-            if(idCidade == -1)
-                return -1;
-
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"INSERT INTO Enderecos (Logradouro, Cep, Numero, Bairro, IdCidade)
-                                        VALUES (@Logradouro, @Cep, @Numero, @Bairro, @IdCidade)";
-
-                command.Parameters.AddWithValue("@Logradouro", endereco.Logradouro);
-                command.Parameters.AddWithValue("@Cep", endereco.Cep);
-                command.Parameters.AddWithValue("@Numero", endereco.Numero);
-                command.Parameters.AddWithValue("@Bairro", endereco.Bairro);
-                command.Parameters.AddWithValue("@IdCidade", idCidade);
-                dao.executarQuerySemRetorno(command);
-
-                return recuperarIdEndereco(endereco);
-            } catch(Exception) { }
-            return -1;
-        }
-
-        private int recuperarIdEndereco(Endereco endereco) {
-            try {
-                var command = new OleDbCommand();
-
-                command.CommandText = @"SELECT * FROM Enderecos WHERE Logradouro = @Logradouro AND Cep = @Cep AND Numero = @Numero AND Bairro = @Bairro";
-                command.Parameters.AddWithValue("@Logradouro", endereco.Logradouro);
-                command.Parameters.AddWithValue("@Cep", endereco.Cep);
-                command.Parameters.AddWithValue("@Numero", endereco.Numero);
-                command.Parameters.AddWithValue("@Bairro", endereco.Bairro);
-                return dao.queryForId(command);
-            } catch(Exception) { }
-            return -1;
-        }
-
         public void insert(Aluno aluno) {
-            int idEndereco = inserirEnderecoERecuperarId(aluno.Endereco);
+            int idEndereco = inserirEnderecoCompleto(aluno.Endereco);
             if(idEndereco == -1)
                 return;
 
             try {
                 var command = new OleDbCommand();
-                command.CommandText = @"INSERT INTO Alunos (Nome, Cpf, IdEndereco, Matricula, Serie, Sexo, DataNascimento) 
-                                        VALUES (@Nome, @Cpf, @IdEndereco, @Matricula, @Serie, @Sexo, @DataNascimento)";
+                command.CommandText = @"INSERT INTO Alunos (Nome, Cpf, IdEndereco, Matricula, Serie, Sexo, DataNascimento, Telefone, Email) 
+                                        VALUES (@Nome, @Cpf, @IdEndereco, @Matricula, @Serie, @Sexo, @DataNascimento, @Telefone, @Email)";
 
                 command.Parameters.AddWithValue("@Nome", aluno.Nome);
                 command.Parameters.AddWithValue("@Cpf", aluno.Cpf);
@@ -118,6 +26,8 @@ namespace GerenciadorTarefas.DAO
                 command.Parameters.AddWithValue("@Serie", aluno.Serie);
                 command.Parameters.AddWithValue("@Sexo", aluno.Sexo);
                 command.Parameters.AddWithValue("@DataNascimento", aluno.DataNascimento);
+                command.Parameters.AddWithValue("@Telefone", aluno.Telefone);
+                command.Parameters.AddWithValue("@Email", aluno.Email);
 
                 dao.executarQuerySemRetorno(command);
 
@@ -135,7 +45,45 @@ namespace GerenciadorTarefas.DAO
         }
 
         public void update(Aluno aluno) {
-            throw new System.NotImplementedException();
+            try {
+                var command = new OleDbCommand();
+                command.CommandText = @"UPDATE Alunos SET Nome = @Nome, Cpf = @Cpf, Matricula = @Matricula, Serie = @Serie, 
+                                        Sexo = @Sexo, DataNascimento = @DataNascimento, Telefone = @Telefone, Email = @Email 
+                                        WHERE Id = @IdAluno";
+
+                command.Parameters.AddWithValue("@Nome", aluno.Nome);
+                command.Parameters.AddWithValue("@Cpf", aluno.Cpf);
+                command.Parameters.AddWithValue("@Matricula", aluno.Matricula);
+                command.Parameters.AddWithValue("@Serie", aluno.Serie);
+                command.Parameters.AddWithValue("@Sexo", aluno.Sexo);
+                command.Parameters.AddWithValue("@DataNascimento", aluno.DataNascimento);
+                command.Parameters.AddWithValue("@Telefone", aluno.Telefone);
+                command.Parameters.AddWithValue("@Email", aluno.Email);
+                command.Parameters.AddWithValue("@IdAluno", aluno.Id);
+                dao.executarQuerySemRetorno(command);
+
+                UpdateEndereco(aluno);
+            } catch(Exception) { }
+        }
+
+        private void UpdateEndereco(Aluno aluno) {
+            try {
+                var idEstado = inserirEstado(aluno.Endereco);
+                var idCidade = updateCidade(aluno.Endereco, idEstado);
+                
+                //Endereco
+                var commandUpdateEndereco = new OleDbCommand();
+                commandUpdateEndereco.CommandText = @"UPDATE Enderecos SET Logradouro = @Logradouro, Cep = @Cep, Numero = @Numero, 
+                                        Bairro = @Bairro, IdCidade = @IdCidade WHERE Id = @IdEndereco";
+
+                commandUpdateEndereco.Parameters.AddWithValue("@Logradouro", aluno.Endereco.Logradouro);
+                commandUpdateEndereco.Parameters.AddWithValue("@Cep", aluno.Endereco.Cep);
+                commandUpdateEndereco.Parameters.AddWithValue("@Numero", aluno.Endereco.Numero);
+                commandUpdateEndereco.Parameters.AddWithValue("@Bairro", aluno.Endereco.Bairro);
+                commandUpdateEndereco.Parameters.AddWithValue("@IdCidade", idCidade);
+                commandUpdateEndereco.Parameters.AddWithValue("@IdEndereco", aluno.Endereco.Id);
+                dao.executarQuerySemRetorno(commandUpdateEndereco);
+            } catch(Exception) { }
         }
 
         public List<Aluno> findAll() {
@@ -192,6 +140,114 @@ namespace GerenciadorTarefas.DAO
                 command.Parameters.AddWithValue("@DataFalta", data);
                 dao.executarQuerySemRetorno(command);
             } catch(Exception) { }
+        }
+
+        private int inserirEnderecoCompleto(Endereco endereco) {
+            try {
+                //Estado
+                int idEstado = inserirEstado(endereco);
+
+                //Cidade
+                int idCidade = inserirCidade(endereco, idEstado);
+
+                //Endereco
+                var commandEnderecoInsert = new OleDbCommand();
+                commandEnderecoInsert.CommandText = @"INSERT INTO Enderecos (Logradouro, Cep, Numero, Bairro, IdCidade)
+                                        VALUES (@Logradouro, @Cep, @Numero, @Bairro, @IdCidade)";
+
+                commandEnderecoInsert.Parameters.AddWithValue("@Logradouro", endereco.Logradouro);
+                commandEnderecoInsert.Parameters.AddWithValue("@Cep", endereco.Cep);
+                commandEnderecoInsert.Parameters.AddWithValue("@Numero", endereco.Numero);
+                commandEnderecoInsert.Parameters.AddWithValue("@Bairro", endereco.Bairro);
+                commandEnderecoInsert.Parameters.AddWithValue("@IdCidade", idCidade);
+                dao.executarQuerySemRetorno(commandEnderecoInsert);
+
+                return findEnderecoId(endereco);
+            } catch(Exception) { }
+            return -1;
+        }
+
+        private int inserirCidade(Endereco endereco, int idEstado) {
+            var idCidade = findCidadeId(endereco);
+            if(idCidade >= 0) {
+                return idCidade;
+            }
+
+            var commandCidadeInsert = new OleDbCommand();
+            commandCidadeInsert.CommandText = @"INSERT INTO Cidades (Nome, IdEstado) VALUES (@Nome, @IdEstado)";
+            commandCidadeInsert.Parameters.AddWithValue("@Nome", endereco.Cidade);
+            commandCidadeInsert.Parameters.AddWithValue("@IdEstado", idEstado);
+            dao.executarQuerySemRetorno(commandCidadeInsert);
+
+            return idCidade = findCidadeId(endereco);
+        }
+
+        private int updateCidade(Endereco endereco, int idEstado) {
+            var idCidade = findCidadeId(endereco);
+            if(idCidade >= 0) {
+                var commandCidadeUpdate = new OleDbCommand();
+                commandCidadeUpdate.CommandText = @"UPDATE Cidades SET Nome = @Nome, IdEstado = @IdEstado WHERE Id = @IdCidade";
+                commandCidadeUpdate.Parameters.AddWithValue("@Nome", endereco.Cidade);
+                commandCidadeUpdate.Parameters.AddWithValue("@IdEstado", idEstado);
+                commandCidadeUpdate.Parameters.AddWithValue("@IdCidade", idCidade);
+                dao.executarQuerySemRetorno(commandCidadeUpdate);
+                return idCidade = findCidadeId(endereco);
+            }
+
+            return inserirCidade(endereco, idEstado);
+        }
+
+        //private int updateEstado(Endereco endereco) {
+        //    var idEstado = findEstadoId(endereco);
+        //    if(idEstado >= 0) {
+        //        var commandEstadoUpdate = new OleDbCommand();
+        //        commandEstadoUpdate.CommandText = @"UPDATE Estado SET Nome = @Nome WHERE Id = @IdEstado";
+        //        commandEstadoUpdate.Parameters.AddWithValue("@Nome", endereco.Estado);
+        //        commandEstadoUpdate.Parameters.AddWithValue("@IdEstado", idEstado);
+        //        dao.executarQuerySemRetorno(commandEstadoUpdate);
+        //        return findEstadoId(endereco);
+        //    }
+        //    return inserirEstado(endereco);
+        //}
+
+        private int inserirEstado(Endereco endereco) {
+            var idEstado = findEstadoId(endereco);
+            if(idEstado >= 0) {
+                return idEstado;
+            }
+
+            var commandEstadoInsert = new OleDbCommand();
+            commandEstadoInsert.CommandText = @"INSERT INTO Estados (Nome) VALUES (@Nome)";
+            commandEstadoInsert.Parameters.AddWithValue("@Nome", endereco.Estado);
+            dao.executarQuerySemRetorno(commandEstadoInsert);
+
+            return idEstado = findEstadoId(endereco);
+        }
+
+        private int findEnderecoId(Endereco endereco) {
+            var commandEnderecoSelect = new OleDbCommand();
+            commandEnderecoSelect.CommandText = @"SELECT * FROM Enderecos WHERE Logradouro = @Logradouro AND Cep = @Cep AND Numero = @Numero";
+            commandEnderecoSelect.Parameters.AddWithValue("@Logradouro", endereco.Logradouro);
+            commandEnderecoSelect.Parameters.AddWithValue("@Cep", endereco.Cep);
+            commandEnderecoSelect.Parameters.AddWithValue("@Numero", endereco.Numero);
+
+            return dao.queryForId(commandEnderecoSelect);
+        }
+
+        private int findCidadeId(Endereco endereco) {
+            var commandCidadeSelect = new OleDbCommand();
+            commandCidadeSelect.CommandText = @"SELECT * FROM Cidades WHERE Nome = @Nome";
+            commandCidadeSelect.Parameters.AddWithValue("@Nome", endereco.Cidade);
+            var idCidade = dao.queryForId(commandCidadeSelect);
+            return idCidade;
+        }
+
+        private int findEstadoId(Endereco endereco) {
+            var commandEstadoSelect = new OleDbCommand();
+            commandEstadoSelect.CommandText = @"SELECT * FROM Estados WHERE Nome = @Nome";
+            commandEstadoSelect.Parameters.AddWithValue("@Nome", endereco.Estado);
+            var idEstado = dao.queryForId(commandEstadoSelect);
+            return idEstado;
         }
     }
 }

@@ -54,15 +54,15 @@
 
 
     <div class="container">
-        <form action="/Aluno/Cadastrar" method="POST">
+        <form action="/Aluno/Atualizar" method="POST">
             @Html.AntiForgeryToken()
             <div class="box-detalhe" style="height: 1430px;">
-                <h2>Novo aluno</h2>
+                <h2>Editar aluno</h2>
                 @*Aluno*@
                 <div class="form-group">
                     <label>Nome</label>
                     <input type="text" class="form-control" name="Nome" value="@ViewBag.Aluno.Nome" />
-                    <span style="color:lightcoral">@Html.ValidationMessage("Nome")</span>
+                    <span style="color:lightcoral;">@Html.ValidationMessage("Nome")</span>
                 </div>
                 <div class="form-group">
                     <label>Data de nascimento</label>
@@ -79,7 +79,7 @@
                 <div class="form-group">
                     <label>Matricula</label>
                     <input type="number" class="form-control" name="Matricula" value="@ViewBag.Aluno.Matricula" />
-                    <span style="color:lightcoral">@Html.ValidationMessage("Matricula")</span>
+                    <span style="color:lightcoral;">@Html.ValidationMessage("Matricula")</span>
                 </div>
                 <div class="form-group">
                     <label>Serie</label>
@@ -87,7 +87,7 @@
                 </div>
                 <div class="form-group">
                     <label>Telefone</label>
-                    <input type="text" class="form-control" name="Telefone" value="@ViewBag.Aluno.Telefone" id="CELULAR" />
+                    <input type="text" class="form-control" name="Telefone" value="@ViewBag.Aluno.Telefone" id="CELULAR"/>
                 </div>
                 <div class="form-group">
                     <label>Email</label>
@@ -101,7 +101,7 @@
                 </div>
                 <div class="form-group">
                     <label>CEP</label>
-                    <input type="text" class="form-control" name="Endereco.Cep" value="@ViewBag.Aluno.Endereco.Cep" id="CEP" />
+                    <input type="text" class="form-control" name="Endereco.Cep" value="@ViewBag.Aluno.Endereco.Cep" id="CEP"/>
                 </div>
                 <div class="form-group">
                     <label>Numero</label>
@@ -120,9 +120,10 @@
                     <label>Estado</label>
                     <input type="text" class="form-control" name="Endereco.Estado" value="@ViewBag.Aluno.Endereco.Estado" />
                 </div>
-
+                <input type="hidden" name="Id" value="@(ViewBag.Aluno.Id)" />
+                <input type="hidden" name="Endereco.Id" value="@(ViewBag.Aluno.Endereco.Id)" />
                 <br />
-                <button class="btn btn-success btn-block" type="submit" style="margin-bottom: 150px">Cadastrar</button>
+                <button class="btn btn-success btn-block" type="submit" style="margin-bottom: 150px">Atualizar</button>
             </div>
         </form>
     </div>
@@ -141,7 +142,6 @@
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/popper.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
-
     <footer>
         <span>&copy; Copyright 2018 - Anderson Marques.</span>
     </footer>
