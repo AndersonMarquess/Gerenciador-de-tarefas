@@ -91,6 +91,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Css\atribuir-notas.css" />
     <Content Include="Content\Css\buscar-tarefa.css" />
     <Content Include="Content\Css\barra-navegacao.css" />
     <Content Include="Content\Css\footer.css" />
@@ -112,12 +113,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdministradorController.cs" />
     <Compile Include="Controllers\AlunoController.cs" />
+    <Compile Include="Controllers\DiarioDeNotaController.cs" />
     <Compile Include="Controllers\TarefaController.cs" />
     <Compile Include="DAO\AdministradorDAO.cs" />
     <Compile Include="DAO\AlunoDAO.cs" />
     <Compile Include="DAO\ConexaoDB.cs" />
+    <Compile Include="DAO\DiarioDeNotaDAO.cs" />
     <Compile Include="DAO\IAdministradorDAO.cs" />
     <Compile Include="DAO\IAlunoDAO.cs" />
+    <Compile Include="DAO\IDiarioDeNotaDAO.cs" />
     <Compile Include="DAO\ITarefaDAO.cs" />
     <Compile Include="DAO\TarefaDAO.cs" />
     <Compile Include="Filtros\AutorizacaoFilterAttribute.cs" />
@@ -149,6 +153,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Aluno\Informacoes.cshtml" />
     <Content Include="Views\Aluno\Editar.cshtml" />
+    <Content Include="Views\DiarioDeNota\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -158,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\DiariosDeNota\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

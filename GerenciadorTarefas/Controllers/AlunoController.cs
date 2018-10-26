@@ -1,4 +1,5 @@
 ﻿using GerenciadorTarefas.DAO;
+using GerenciadorTarefas.Filtros;
 using GerenciadorTarefas.Models;
 using System;
 using System.Collections.Generic;
@@ -6,11 +7,11 @@ using System.Web.Mvc;
 
 namespace GerenciadorTarefas.Controllers
 {
-    //[AutorizacaoFilter]
+    [AutorizacaoFilter]
     public class AlunoController : Controller
     {
         IAlunoDAO dao = new AlunoDAO();
-        ITarefaDAO tarefaDAO = new TarefaDAO();
+        //ITarefaDAO tarefaDAO = new TarefaDAO();
 
         // GET: Aluno
         public ActionResult Index() {
@@ -41,7 +42,7 @@ namespace GerenciadorTarefas.Controllers
             return View();
         }
 
-        public ActionResult Informacoes(int id = 2) {
+        public ActionResult Informacoes(int id) {
             if(id < 0)
                 return RedirectToAction("Listar");
 

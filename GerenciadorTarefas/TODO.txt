@@ -50,3 +50,21 @@
 #6.1.4 - Funcionalidade de remover tarefas
 
 6.2 - Adicionar funcionalidade de atribuir nota ao aluno
+#6.2.1 - Criar views de busca
+#6.2.2 - Criar DAO de busca
+6.2.3 - Personalizar borda da tarefa na lista de atribuir nota.
+6.2.4 - Criar lógica de busca de notas do aluno
+6.2.5 - Criar lógica de editar a nota do aluno
+6.2.6 - Criar lógica de remover a nota do aluno
+
+7 - Verificar toda segurança da aplicação
+7.1 - Ver quais pontos precisam de autenticação
+7.2 - Ver quais campos precisam de mensagens de erros ou validações
+7.2.1 - Criar campos necessários
+
+8 - Normalização
+8.1 - Ajustar titles das páginas
+8.2 - Ajustar barra de navegação
+8.3 - Verificar conformidade com os requisitos.
+
+9 - Pegar Path padrão do sistema informar onde se encontra o banco de dados.

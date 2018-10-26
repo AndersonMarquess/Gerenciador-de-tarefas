@@ -1,0 +1,35 @@
+﻿
+.janela-de-busca-aluno {
+    width: 600px;
+    margin: auto;
+}
+
+.janela-de-busca-aluno label {
+    margin-right: 20px;
+    padding-top: 7px;
+}
+
+.janela-de-busca-aluno button {
+    margin-left: auto;
+}
+
+.janela-de-busca-aluno select {
+    width: 430px;
+}
+
+.ajuste-form {
+    display: block;
+    margin: unset;
+    background-color: #55595c;
+    border-radius: 3px;
+    height: 60px;
+    padding-top: 10px;
+}
+
+.btn-atribuir-nota {
+    width: 100%;
+}
+
+h2{
+    text-align: center;
+}
