@@ -38,23 +38,30 @@ namespace GerenciadorTarefas.Controllers
         }
 
         public ActionResult Form() {
-            var aluno = Session["usuarioLogado"] as Administrador;
+            var admin = Session["usuarioLogado"] as Administrador;
 
-            if(aluno == null)
-                return RedirectToAction("Index", "Aluno");
+            if(admin == null)
+                return RedirectToAction("Index", "Admin");
 
+            ViewBag.Tarefa = new Tarefa();
             return View("Cadastrar");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Cadastrar(Tarefa tarefa) {
+            ViewBag.Tarefa = tarefa;
+
             var view = validarTarefa(tarefa, "Cadastrar");
             if(view != null)
                 return view;
 
-            dao.insert(tarefa);
-            return RedirectToAction("Listar");
+            if(ModelState.IsValid) {
+                dao.insert(tarefa);
+                return RedirectToAction("Listar");
+            }
+
+            return View("Cadastrar");
         }
 
         public ActionResult Concluida(int id) {
@@ -96,12 +103,12 @@ namespace GerenciadorTarefas.Controllers
                 return View(viewName);
             }
 
-            if(tarefa.Descricao == null || tarefa.Descricao.Length > 250) {
-                @ViewBag.t = tarefa;
-                ModelState.AddModelError("erro-descricao",
-                    "A Descrição é obrigatória e deve conter no máximo 250 caracteres.");
-                return View(viewName);
-            }
+            //if(tarefa.Descricao == null || tarefa.Descricao.Length > 250) {
+            //    @ViewBag.t = tarefa;
+            //    ModelState.AddModelError("erro-descricao",
+            //        "A Descrição é obrigatória e deve conter no máximo 250 caracteres.");
+            //    return View(viewName);
+            //}
 
             return null;
         }

@@ -1,12 +1,17 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace GerenciadorTarefas.Models
 {
     public class Tarefa {
 
         public int Id { get; set; }
+        [Required]
         public TipoTarefa TipoDaTarefa { get; set; }
         public DateTime DataLimite { get; set; }
+        //[MinLength(5, ErrorMessage = "A Descrição é obrigatória deve conter entre 5 e 250 caracteres.")]
+        [Required]
+        [StringLength(250, MinimumLength = 5, ErrorMessage = "A Descrição é obrigatória deve conter entre 5 e 250 caracteres.")]
         public string Descricao { get; set; }
         public int IdAdmin { get; set; }
 

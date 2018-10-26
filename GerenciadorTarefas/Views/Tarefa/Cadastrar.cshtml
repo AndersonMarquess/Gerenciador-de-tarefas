@@ -62,27 +62,30 @@
                 <div class="form-group">
                     <label>Tipo de tarefa</label>
                     <select class="form-control" name="TipoDaTarefa">
+                        <option value="#"></option>
                         <option value="Atividade_Complementar">Atividade complementar</option>
                         <option value="Trabalho">Trabalho</option>
                         <option value="Prova">Prova</option>
                         <option value="DP">DP</option>
                         <option value="Outro">Outro</option>
                     </select>
+                    <span style="color:red;">@Html.ValidationMessage("TipoDaTarefa")</span>
                 </div>
 
                 <div class="form-group">
                     <label>Data limite para entrega</label>
-                    <input type="date" class="form-control" name="DataLimite" />
+                    <input type="date" class="form-control" name="DataLimite" value="@ViewBag.Tarefa.DataLimite" />
                     <span style="color:red;">@Html.ValidationMessage("erro-data")</span>
                 </div>
 
                 <div class="form-group">
                     <label>Descrição</label>
-                    <textarea type="text" class="form-control" rows="3" name="Descricao"></textarea>
-                    <span style="color:red;">@Html.ValidationMessage("erro-descricao")</span>
+                    <textarea type="text" class="form-control" rows="3" name="Descricao">@ViewBag.Tarefa.Descricao</textarea>
+                    <span style="color:red;">@Html.ValidationMessage("Descricao")</span>
                 </div>
+                
+                <input type="hidden" name="IdAdmin" value="@ViewBag.usuarioID"/>
 
-                <input type="hidden" name="IdAdmin" value="@ViewBag.usuarioID" />
                 <button class="btn btn-success btn-block" type="submit">Cadastrar</button>
             </div>
         </form>

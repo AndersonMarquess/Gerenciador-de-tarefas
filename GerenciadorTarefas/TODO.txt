@@ -42,11 +42,11 @@
 #6.0.4 - Ajustar as Querys de insert e update da informações do aluno
 #6.0.5 - Corrigir problema ao tentar editar uma cidade ou estado - Ao tentar editar apenas a cidade ou estado não funciona, só funciona se editar os 2.
 
-6.0.6 - Mover todos os scripts para parte inferior da página
+#6.0.6 - Mover todos os scripts para parte inferior da página
 
-6.1.1 - Funcionalidade de criar tarefa
-6.1.2 - Funcionalidade de listar tarefas
-6.1.3 - Funcionalidade de editar tarefas
-6.1.4 - Funcionalidade de remover tarefas
+#6.1.1 - Funcionalidade de criar tarefa
+#6.1.2 - Funcionalidade de listar tarefas
+#6.1.3 - Funcionalidade de editar tarefas
+#6.1.4 - Funcionalidade de remover tarefas
 
 6.2 - Adicionar funcionalidade de atribuir nota ao aluno

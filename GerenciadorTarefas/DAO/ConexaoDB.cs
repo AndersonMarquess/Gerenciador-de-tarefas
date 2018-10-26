@@ -191,6 +191,7 @@ namespace GerenciadorTarefas.DAO
                     string palavraBackup = reader[4].ToString();
 
                     admin = new Administrador(nome, login, senha, palavraBackup);
+                    admin.Id = id;
                 } catch(Exception) { }
             }
 

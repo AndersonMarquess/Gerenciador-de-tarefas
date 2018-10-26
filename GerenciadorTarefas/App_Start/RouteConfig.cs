@@ -11,15 +11,12 @@ namespace GerenciadorTarefas
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
-            //Route scam
-            //routes.MapMvcAttributeRoutes();
-
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Aluno", action = "Index", id = UrlParameter.Optional }//controller padrão é Home
+                defaults: new { controller = "Administrador", action = "Index", id = UrlParameter.Optional }//controller padrão é Home
             );
         }
     }
