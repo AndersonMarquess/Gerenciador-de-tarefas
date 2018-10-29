@@ -41,6 +41,6 @@ label {
 
 #data-navbar {
     margin-left: auto;
-    min-width: 360px; /*Mesmo tamanho dos links 280px + padding 75px + 5*/
+    min-width: 430px;
     text-align: end;
 }
