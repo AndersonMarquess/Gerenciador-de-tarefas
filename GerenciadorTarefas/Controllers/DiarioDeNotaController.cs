@@ -40,5 +40,15 @@ namespace GerenciadorTarefas.Controllers
             //No start show modal colocar uma condição para saber se a tarefa é a de mesmo id que o enviado e se sim
             return BuscarTarefas(diario.IdAluno);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Editar(DiarioDeNota diario) {
+            if(ModelState.IsValid) {
+                dao.update(diario);
+            }
+
+            return RedirectToAction("Informacoes", "Aluno", new { id = diario.IdAluno });
+        }
     }
 }

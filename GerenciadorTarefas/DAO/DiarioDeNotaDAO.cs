@@ -46,5 +46,17 @@ namespace GerenciadorTarefas.DAO
             } catch(Exception) { }
             return notas;
         }
+
+        public void update(DiarioDeNota diario) {
+            try {
+                var command = new OleDbCommand();
+                command.CommandText = @"UPDATE DiariosDeNota SET NotaRecebida = @NotaRecebida, Observacoes = @Observacoes 
+                                        WHERE DiariosDeNota.Id = @IdDiario";
+                command.Parameters.AddWithValue("@NotaRecebida", diario.NotaRecebida);
+                command.Parameters.AddWithValue("@Observacoes", diario.Observacoes);
+                command.Parameters.AddWithValue("@IdDiario", diario.Id);
+                dao.executarQuerySemRetorno(command);
+            } catch(Exception) { }
+        }
     }
 }

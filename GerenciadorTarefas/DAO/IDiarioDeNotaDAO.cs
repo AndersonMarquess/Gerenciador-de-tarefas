@@ -10,5 +10,7 @@ namespace GerenciadorTarefas.DAO
         List<DiarioDeNota> findTarefasEntreguesByAlunoId(int id);
 
         void insert(DiarioDeNota diario);
+
+        void update(DiarioDeNota diario);
     }
 }
