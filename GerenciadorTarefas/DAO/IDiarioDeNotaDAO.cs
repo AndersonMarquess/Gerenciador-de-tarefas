@@ -7,6 +7,8 @@ namespace GerenciadorTarefas.DAO
     {
         List<Tarefa> findTarefasNaoEntreguesDoAluno(int id);
 
+        List<DiarioDeNota> findTarefasEntreguesByAlunoId(int id);
+
         void insert(DiarioDeNota diario);
     }
 }

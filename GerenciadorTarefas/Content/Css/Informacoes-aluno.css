@@ -4,9 +4,9 @@
     border-radius: 3px;
 }
 
-.div-info button {
+/*.div-info button {
     margin-left: auto;
-}
+}*/
 
 .div-info {
     margin-bottom: 5px;
@@ -19,4 +19,18 @@
 .div-info label {
     margin-top: 7px;
     margin-left: 10px;
+}
+
+.btn-no-fim {
+    margin-left: auto;
+}
+
+.div-notas .btn-primary {
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 88px;/*Normaliza o tamanho com o botão de remover*/
+}
+
+.modal-dialog .editar-nota label {
+    color:black;
 }

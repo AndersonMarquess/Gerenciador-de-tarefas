@@ -82,9 +82,11 @@
             @{
                 foreach(var tarefa in ViewBag.Tarefas) {
 
-                    <form action="/DiarioDeNota/AtribuirNota" method="POST">
+                    <form action="/DiarioDeNota/AtribuirNota" method="POST"
+                          @( ViewBag.Tarefas.Count == 1 ? "style=display:block;margin:0px;" : "" )>
                         @Html.AntiForgeryToken()
-                        <div class="box-detalhe">
+                        <div class="box-detalhe"
+                             @( tarefa.DataLimite < DateTime.Today ? $"style=border-top-color:red;" : $"style=border-top-color:white;" )>
                             <div class="form-group">
                                 <label>Tipo de tarefa</label>
                                 <input class="form-control" value="@tarefa.TipoDaTarefa" readonly />
@@ -92,7 +94,8 @@
 
                             <div class="form-group">
                                 <label>Data limite para entrega</label>
-                                <input type="date" class="form-control" value="@tarefa.getDataFormatadaBrowser()" readonly />
+                                <input type="date" class="form-control" value="@tarefa.getDataFormatadaBrowser()" readonly 
+                                       @( tarefa.DataLimite == DateTime.Today ? $"style=border-color:#dc3545;" : "" )/>
                             </div>
 
                             <div class="form-group">
@@ -121,12 +124,9 @@
 
                                             <div class="form-group">
                                                 <label>Nota</label>
-                                                <input class="form-control" type="number" name="NotaRecebida" />
+                                                <input class="form-control" type="number" name="NotaRecebida" min="0" max="10"/>
+                                                <span style="color:red">@Html.ValidationMessage("NotaRecebida")</span>
                                             </div>
-                                            @*<div class="form-group">
-                                                <label>Data da entrega</label>
-                                                <input class="form-control" type="date" name="DataEntrega" />
-                                            </div>*@
                                             <div class="form-group">
                                                 <label>Observações</label>
                                                 <textarea rows="3" class="form-control" name="Observacoes"></textarea>

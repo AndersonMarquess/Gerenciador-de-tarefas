@@ -34,5 +34,17 @@ namespace GerenciadorTarefas.DAO
                 dao.executarQuerySemRetorno(command);
             } catch(Exception) { }
         }
+
+        public List<DiarioDeNota> findTarefasEntreguesByAlunoId(int id) {
+            var notas = new List<DiarioDeNota>();
+            try {
+                var command = new OleDbCommand();
+                command.CommandText = @"SELECT * FROM DiariosDeNota WHERE IdAluno = @IdAluno";
+                command.Parameters.AddWithValue("@IdAluno", id);
+                notas = dao.queryListaNotas(command);
+                return notas;
+            } catch(Exception) { }
+            return notas;
+        }
     }
 }

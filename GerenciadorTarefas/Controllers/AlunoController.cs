@@ -11,7 +11,7 @@ namespace GerenciadorTarefas.Controllers
     public class AlunoController : Controller
     {
         IAlunoDAO dao = new AlunoDAO();
-        //ITarefaDAO tarefaDAO = new TarefaDAO();
+        IDiarioDeNotaDAO diarioDAO = new DiarioDeNotaDAO();
 
         // GET: Aluno
         public ActionResult Index() {
@@ -51,8 +51,8 @@ namespace GerenciadorTarefas.Controllers
             HashSet<DiarioDePresenca> faltas = dao.findAllFaltasByAlunoId(id);
             ViewBag.Faltas = faltas;
 
-            //List<DiarioDeNota> notas = tarefaDAO.findAllByAlunoId(id);
-            //ViewBag.Tarefas = notas;
+            List<DiarioDeNota> notas = diarioDAO.findTarefasEntreguesByAlunoId(id);
+            ViewBag.Notas = notas;
 
             ViewBag.Aluno = aluno;
             return View();

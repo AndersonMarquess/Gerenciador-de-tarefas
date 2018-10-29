@@ -144,7 +144,7 @@
             foreach(var falta in ViewBag.Faltas) {
                 <div class="row div-info">
                     <label>Data: @falta.getDataDaFaltaFormatada()</label>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#falta@(falta.GetHashCode())">Remover</button>
+                    <button class="btn btn-danger btn-no-fim" data-toggle="modal" data-target="#falta@(falta.GetHashCode())">Remover</button>
                 </div>
 
                 <div class="modal fade" id="falta@(falta.GetHashCode())" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -175,7 +175,79 @@
         }
 
         <h2>Notas do aluno</h2>
+        @{
+            foreach(var nota in ViewBag.Notas) {
 
+                <div class="row div-info div-notas">
+                    <label>Nota: @nota.NotaRecebida</label>
+                    <label>Observações: @nota.Observacoes</label>
+                    <button class="btn btn-success btn-no-fim">Informações</button>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#editar@(nota.Id)">Editar</button>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#remover@(nota.Id)">Remover</button>
+                </div>
+                //Informações da tarefa
+
+                //Editar
+                <div class="modal fade" id="editar@(nota.Id)" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content editar-nota">
+                            <form action="/DiarioDeNota/Editar" method="POST">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Editar nota</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label>Nota</label>
+                                        <input class="form-control" type="number" name="NotaRecebida" min="0" max="10" value="@nota.NotaRecebida"/>
+                                        <span style="color:red">@Html.ValidationMessage("NotaRecebida")</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Observações</label>
+                                        <textarea rows="3" class="form-control" name="Observacoes">@nota.Observacoes</textarea>
+                                    </div>
+
+                                    <input type="hidden" name="Id" value="@nota.Id" />
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-success">Alterar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                //Remover
+                <div class="modal fade" id="remover@(nota.Id)" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Remover nota</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Deseja realmente remover esta nota?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <form action="/DiarioDeNota/RemoverNota" method="POST">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" value="@nota.Id" name="id" />
+                                    <button class="btn btn-danger" type="submit">Remover nota</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
     </div>
 
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>

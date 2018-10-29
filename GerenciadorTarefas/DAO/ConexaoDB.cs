@@ -76,10 +76,11 @@ namespace GerenciadorTarefas.DAO
             while(reader.Read()) {
                 try {
                     var n = new DiarioDeNota() {
+                        Id = (int)reader[0],
                         IdAluno = (int)reader[1],
                         IdTarefa = (int)reader[2],
-                        NotaRecebida = (double)reader[3],
-                        Observacoes = reader[5].ToString()
+                        NotaRecebida = Convert.ToDouble(reader[3].ToString()),
+                        Observacoes = reader[4].ToString()
                     };
                     notas.Add(n);
                 } catch(Exception) { }
@@ -88,6 +89,25 @@ namespace GerenciadorTarefas.DAO
             fecharConexao();
             return notas;
         }
+
+        //internal List<DiarioDeNota> querListaDiarioDeNota(OleDbCommand command) {
+        //    abrirConexao();
+        //    var notas = new List<DiarioDeNota>();
+
+        //    command.Connection = _conn;
+        //    OleDbDataReader reader = command.ExecuteReader();
+
+        //    while(reader.Read()) {
+        //        var nota = new DiarioDeNota() {
+        //            Id = (int)reader[0];
+        //        };
+        //        notas.Add(nota);
+        //    }
+
+
+        //    fecharConexao();
+        //    return notas;
+        //}
 
         internal int queryForId(OleDbCommand command) {
             abrirConexao();
@@ -225,7 +245,7 @@ namespace GerenciadorTarefas.DAO
                     a.Email = email;
 
                     alunos.Add(a);
-                    
+
                 } catch(Exception) { }
             }
 
