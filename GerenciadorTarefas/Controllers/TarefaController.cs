@@ -102,14 +102,6 @@ namespace GerenciadorTarefas.Controllers
                 ModelState.AddModelError("erro-data", "A Data limite deve ser maior ou igual a hoje.");
                 return View(viewName);
             }
-
-            //if(tarefa.Descricao == null || tarefa.Descricao.Length > 250) {
-            //    @ViewBag.t = tarefa;
-            //    ModelState.AddModelError("erro-descricao",
-            //        "A Descrição é obrigatória e deve conter no máximo 250 caracteres.");
-            //    return View(viewName);
-            //}
-
             return null;
         }
     }

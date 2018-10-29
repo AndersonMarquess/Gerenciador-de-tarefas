@@ -7,7 +7,7 @@ namespace GerenciadorTarefas.Models
     public class Aluno: Pessoa
     {
         [Required]
-        //[MaxLength(20, ErrorMessage = "O Campo {0} é obrigatório e deve conter no máximo {1}.")]
+        [Range(10, 99999999, ErrorMessage = "O Campo matrícula é obrigatório e deve conter entre 2 e 8 dígitos.")]
         public int Matricula { get; set; }
         public string Serie { get; set; }
         public string Telefone { get; set; }

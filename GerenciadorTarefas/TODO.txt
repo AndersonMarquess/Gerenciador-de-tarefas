@@ -57,10 +57,11 @@
 #6.2.5 - Criar lógica de editar a nota do aluno
 #6.2.6 - Criar lógica de remover a nota do aluno
 
-7 - Verificar toda segurança da aplicação
-7.1 - Ver quais pontos precisam de autenticação
-7.2 - Ver quais campos precisam de mensagens de erros ou validações
-7.2.1 - Criar campos necessários
+#7 - Verificar toda segurança da aplicação
+#7.1 - Ver quais pontos precisam de autenticação
+#7.2 - Ver quais campos precisam de mensagens de erros ou validações
+#7.2.1 - Criar campos necessários
+#7.3 - Verificar o mask
 
 8 - Normalização
 8.1 - Ajustar titles das páginas

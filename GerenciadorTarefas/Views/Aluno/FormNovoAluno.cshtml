@@ -102,6 +102,7 @@
                 <div class="form-group">
                     <label>CEP</label>
                     <input type="text" class="form-control" name="Endereco.Cep" value="@ViewBag.Aluno.Endereco.Cep" id="CEP" />
+                    <span style="color:lightcoral">@Html.ValidationMessage("Endereco.Cep")</span>
                 </div>
                 <div class="form-group">
                     <label>Numero</label>
@@ -127,6 +128,12 @@
         </form>
     </div>
 
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/jquery.mask.min.js"></script>
+
     @* Mask *@
     <script>
         $(document).ready(function () {
@@ -135,12 +142,6 @@
             $('#CELULAR').mask('(00) 00000-0000');
         });
     </script>
-
-    <script src="~/Scripts/jquery.mask.min.js"></script>
-
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <script src="~/Scripts/popper.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
 
     <footer>
         <span>&copy; Copyright 2018 - Anderson Marques.</span>

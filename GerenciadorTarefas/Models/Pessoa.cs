@@ -4,10 +4,10 @@ using System.ComponentModel.DataAnnotations;
 namespace GerenciadorTarefas.Models
 {
     public abstract class Pessoa {
+
         public int Id { get; set; }
-        //[Required, Range(10, 250, ErrorMessage = "O Campo {0} é obrigatório e deve conter entre {1} e {2} caracteres.")]
         [Required]
-        [MaxLength(250, ErrorMessage = "O Campo {0} é obrigatório e deve conter no máximo {1}.")]
+        [StringLength(250, MinimumLength = 5, ErrorMessage = "O Campo nome é obrigatório e deve conter entre 5 e 250 caracteres.")]
         public string Nome { get; set; }
         public string Cpf { get; set; }
         public Endereco Endereco { get; set; }
