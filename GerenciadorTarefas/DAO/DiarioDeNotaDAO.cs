@@ -58,5 +58,14 @@ namespace GerenciadorTarefas.DAO
                 dao.executarQuerySemRetorno(command);
             } catch(Exception) { }
         }
+
+        public void remover(int id) {
+            try {
+                var command = new OleDbCommand();
+                command.CommandText = @"DELETE FROM DiariosDeNota WHERE Id = @IdNota";
+                command.Parameters.AddWithValue("@IdNota", id);
+                dao.executarQuerySemRetorno(command);
+            } catch(Exception) { }
+        }
     }
 }

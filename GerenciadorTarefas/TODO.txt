@@ -55,7 +55,7 @@
 #6.2.3 - Personalizar borda da tarefa na lista de atribuir nota.
 #6.2.4 - Criar lógica de busca de notas do aluno
 #6.2.5 - Criar lógica de editar a nota do aluno
-6.2.6 - Criar lógica de remover a nota do aluno
+#6.2.6 - Criar lógica de remover a nota do aluno
 
 7 - Verificar toda segurança da aplicação
 7.1 - Ver quais pontos precisam de autenticação

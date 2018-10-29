@@ -12,5 +12,7 @@ namespace GerenciadorTarefas.DAO
         void insert(DiarioDeNota diario);
 
         void update(DiarioDeNota diario);
+
+        void remover(int id);
     }
 }

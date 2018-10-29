@@ -11,6 +11,7 @@ namespace GerenciadorTarefas.Controllers
     {
         private IAlunoDAO alunoDAO = new AlunoDAO();
         private IDiarioDeNotaDAO dao = new DiarioDeNotaDAO();
+        private ITarefaDAO tarefaDAO = new TarefaDAO();
 
         public ActionResult Index() {
             ViewBag.Alunos = alunoDAO.findAll();
@@ -43,6 +44,13 @@ namespace GerenciadorTarefas.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public ActionResult RemoverNota(int idAluno, int idNota) {
+            dao.remover(idNota);
+            return RedirectToAction("Informacoes", "Aluno", new { id = idAluno });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Editar(DiarioDeNota diario) {
             if(ModelState.IsValid) {
                 dao.update(diario);
@@ -50,5 +58,7 @@ namespace GerenciadorTarefas.Controllers
 
             return RedirectToAction("Informacoes", "Aluno", new { id = diario.IdAluno });
         }
+
+
     }
 }

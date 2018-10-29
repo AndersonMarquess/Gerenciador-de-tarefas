@@ -181,11 +181,10 @@
                 <div class="row div-info div-notas">
                     <label>Nota: @nota.NotaRecebida</label>
                     <label>Observações: @nota.Observacoes</label>
-                    <button class="btn btn-success btn-no-fim">Informações</button>
+                    <a class="btn btn-success btn-no-fim" href="/Tarefa/Editar/@nota.IdTarefa">Informações</a>
                     <button class="btn btn-primary" data-toggle="modal" data-target="#editar@(nota.Id)">Editar</button>
                     <button class="btn btn-danger" data-toggle="modal" data-target="#remover@(nota.Id)">Remover</button>
                 </div>
-                //Informações da tarefa
 
                 //Editar
                 <div class="modal fade" id="editar@(nota.Id)" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -241,7 +240,8 @@
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                                 <form action="/DiarioDeNota/RemoverNota" method="POST">
                                     @Html.AntiForgeryToken()
-                                    <input type="hidden" value="@nota.Id" name="id" />
+                                    <input type="hidden" name="idNota" value="@nota.Id" />
+                                    <input type="hidden" name="IdAluno" value="@nota.IdAluno" />
                                     <button class="btn btn-danger" type="submit">Remover nota</button>
                                 </form>
                             </div>
