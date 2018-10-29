@@ -150,7 +150,6 @@
     <Content Include="Views\Administrador\RecuperarSenha.cshtml" />
     <Content Include="Views\Aluno\FormNovoAluno.cshtml" />
     <Content Include="Views\Aluno\Listar.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Aluno\Informacoes.cshtml" />
     <Content Include="Views\Aluno\Editar.cshtml" />
     <Content Include="Views\DiarioDeNota\Index.cshtml" />
@@ -163,7 +162,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\DiariosDeNota\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
