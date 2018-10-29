@@ -13,6 +13,7 @@ namespace GerenciadorTarefas.Models
         [StringLength(250, MinimumLength = 5, ErrorMessage = "A Descrição é obrigatória deve conter entre 5 e 250 caracteres.")]
         public string Descricao { get; set; }
         public int IdAdmin { get; set; }
+        public int Concluida { get; set; }
 
         public Tarefa() { }
 

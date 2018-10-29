@@ -65,7 +65,7 @@ namespace GerenciadorTarefas.Controllers
         }
 
         public ActionResult Concluida(int id) {
-            dao.delete(id);
+            dao.concluir(id);
             return RedirectToAction("Listar");
         }
 

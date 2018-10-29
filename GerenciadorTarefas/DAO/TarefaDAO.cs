@@ -10,6 +10,16 @@ namespace GerenciadorTarefas.DAO
 
         private ConexaoDB dao = ConexaoDB.getInstance();
 
+        public void concluir(int id) {
+            try {
+                var command = new OleDbCommand();
+                command.CommandText = @"UPDATE Tarefas SET Concluido = @Concluido WHERE Id = @id";
+                command.Parameters.AddWithValue("@Concluido", 1);
+                command.Parameters.AddWithValue("@id", id);
+                dao.executarQuerySemRetorno(command);
+            } catch(Exception) { }
+        }
+
         public void delete(int id) {
             try {
                 var command = new OleDbCommand();
@@ -22,24 +32,9 @@ namespace GerenciadorTarefas.DAO
         public List<Tarefa> findAll(int idAdmin) {
             try {
                 var command = new OleDbCommand();
-                command.CommandText = @"SELECT * FROM Tarefas WHERE IdAdmin = @idAdmin";
+                command.CommandText = @"SELECT * FROM Tarefas WHERE IdAdmin = @idAdmin AND Concluido = 0";
                 command.Parameters.AddWithValue("@idAdmin", idAdmin);
                 return dao.queryListaTarefa(command);
-            } catch(Exception) {
-                return null;
-            }
-        }
-
-        public List<DiarioDeNota> findAllByAlunoId(int id) {
-            try {
-                var command = new OleDbCommand();
-                //command.CommandText = @"SELECT DiariosDeNota.*, Tarefas.TipoDaTarefa FROM (Alunos INNER JOIN DiariosDeNota ON Alunos.Id = DiariosDeNota.IdAluno) 
-                //                        INNER JOIN Tarefas ON (Tarefas.Id = DiariosDeNota.IdTarefa) AND (Alunos.Id = Tarefas.IdAluno)
-                //                        WHERE DiariosDeNota.IdAluno = @IdAluno";
-                //command.Parameters.AddWithValue("@IdAluno", id);
-
-                //Fazer query que busca o id da tarefa, a data do recebimento da nota, a nota recebida, e o tipo de tarefa.
-                return dao.queryListaNotas(command);
             } catch(Exception) {
                 return null;
             }
@@ -48,7 +43,7 @@ namespace GerenciadorTarefas.DAO
         public List<Tarefa> findAllByTipo(TipoTarefa tipo) {
             try {
                 var command = new OleDbCommand();
-                command.CommandText = @"SELECT * FROM Tarefas WHERE TipoDaTarefa = @tipo";
+                command.CommandText = @"SELECT * FROM Tarefas WHERE TipoDaTarefa = @tipo AND Concluido = 0";
                 command.Parameters.AddWithValue("@tipo", tipo.ToString());
                 return dao.queryListaTarefa(command);
             } catch(Exception) {

@@ -17,6 +17,6 @@ namespace GerenciadorTarefas.DAO
 
         void delete(int id);
 
-        List<DiarioDeNota> findAllByAlunoId(int id);
+        void concluir(int id);
     }
 }

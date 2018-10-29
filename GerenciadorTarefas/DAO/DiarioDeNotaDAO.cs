@@ -13,7 +13,7 @@ namespace GerenciadorTarefas.DAO
             var tarefas = new List<Tarefa>();
             try {
                 var command = new OleDbCommand();
-                command.CommandText = @"SELECT * FROM Tarefas WHERE Tarefas.Id 
+                command.CommandText = @"SELECT * FROM Tarefas WHERE Tarefas.Concluido = 1 AND Tarefas.Id 
                                         NOT IN (SELECT IdTarefa FROM DiariosDeNota WHERE DiariosDeNota.IdAluno = @IdAluno)";
                 command.Parameters.AddWithValue("@IdAluno", id);
                 tarefas = dao.queryListaTarefa(command);

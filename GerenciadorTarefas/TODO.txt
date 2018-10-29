@@ -71,12 +71,12 @@
 #9 - Pegar Path padrão do sistema informar onde se encontra o banco de dados.
 
 
-10 - Adicionar um campo tarefa concluida a tabela tarefa - juntamente com seus getters e setters
-10.1 - Se  a tarefa for criada o valor padrão do campo é 0, oque significa que ele não foi conluido.
-10.2 - Ao apertar em concluir na listagem de tarefas, é feito o update onde o campo de se torna 1 e com isso para de aparecer na listagem.
-10.3 - Na página de atribuir nota, apenas aparecerá tarefas concluidas.
+#10 - Adicionar um campo tarefa concluida a tabela tarefa - juntamente com seus getters e setters
+#10.1 - Se  a tarefa for criada o valor padrão do campo é 0, oque significa que ele não foi conluido.
+#10.2 - Ao apertar em concluir na listagem de tarefas, é feito o update no campo de conclusao, atribuindo 1 e com isso não irá aparecer na listagem.
+#10.3 - Na página de atribuir nota, apenas aparecerá tarefas concluidas.
 
-11 - Tirar o cadastro de administrador da janela principal e adicionar no menu superior
+#11 - Tirar o cadastro de administrador da janela principal e adicionar no menu superior
 
 
 #BUGS
