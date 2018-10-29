@@ -18,12 +18,38 @@
 <body>
 
     <nav>
-        <div id="all-links-navbar" style="min-width:260px">
-            <a href="/Administrador/Index" class="link-navbar" id="nav-form">Entrar</a>
+        <div id="all-links-navbar" style="display: inline-flex;min-width: 360px;">
+
+            <a href="/Administrador/Logout" class="link-navbar" id="nav-logout">Logout</a>
+
+            <div class="dropdown">
+                <a class="dropdown-toggle link-navbar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                   style="color:#a9a9a9">
+                    Tarefas
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/Tarefa/Index">Buscar</a>
+                    <a class="dropdown-item" href="/Tarefa/Form">Cadastrar</a>
+                    <a class="dropdown-item" href="/Tarefa/Listar">Listar</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a class="dropdown-toggle link-navbar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                   style="color:#a9a9a9">
+                    Alunos
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/Aluno/FormNovoAluno">Cadastrar</a>
+                    <a class="dropdown-item" href="/Aluno/Listar">Listar</a>
+                </div>
+            </div>
+
+            <a href="/Administrador/Form" class="link-navbar" id="nav-logout">Cadastrar administrador</a>
         </div>
 
         <div id="div-nav-username">
-            <label id="usuario-nome-navbar" class="info-navbar">Olá.</label>
+            <label id="usuario-nome-navbar" class="info-navbar">Olá @ViewBag.Username.</label>
         </div>
 
         <label id="data-navbar" class="info-navbar">@ViewBag.DataHoje</label>
@@ -45,7 +71,7 @@
                 </div>
                 <div class="form-group">
                     <label>Palavra de backup</label>
-                    <input class="form-control" type="text" name="palavraBackup" placeholder="Palavra para recuperar a senha."/>
+                    <input class="form-control" type="text" name="palavraBackup" placeholder="Palavra para recuperar a senha." />
                 </div>
                 <div class="form-group">
                     <label>Senha</label>
@@ -62,6 +88,9 @@
     </div>
 
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
     <script>
         $('#senha, #senha2').on('keyup', function () {
             if ($('#senha').val() == $('#senha2').val()) {

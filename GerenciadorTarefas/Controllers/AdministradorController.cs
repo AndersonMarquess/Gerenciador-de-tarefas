@@ -1,4 +1,5 @@
 ﻿using GerenciadorTarefas.DAO;
+using GerenciadorTarefas.Filtros;
 using GerenciadorTarefas.Models;
 using System;
 using System.Web.Mvc;
@@ -31,8 +32,8 @@ namespace GerenciadorTarefas.Controllers
             return View("Index");
         }
 
+        [AutorizacaoFilter]
         public ActionResult Form() {
-            ViewBag.DataHoje = DateTime.Today.ToString("dd/MM/yyyy");
             return View();
         }
 
