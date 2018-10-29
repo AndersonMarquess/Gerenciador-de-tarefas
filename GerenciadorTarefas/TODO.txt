@@ -49,7 +49,7 @@
 #6.1.3 - Funcionalidade de editar tarefas
 #6.1.4 - Funcionalidade de remover tarefas
 
-6.2 - Adicionar funcionalidade de atribuir nota ao aluno
+#6.2 - Adicionar funcionalidade de atribuir nota ao aluno
 #6.2.1 - Criar views de busca
 #6.2.2 - Criar DAO de busca
 #6.2.3 - Personalizar borda da tarefa na lista de atribuir nota.
@@ -66,9 +66,9 @@
 8 - Normalização
 #8.1 - Ajustar titles das páginas
 #8.2 - Ajustar barra de navegação
-8.3 - Verificar conformidade com os requisitos.
+#8.3 - Verificar conformidade com os requisitos.
 
-9 - Pegar Path padrão do sistema informar onde se encontra o banco de dados.
+#9 - Pegar Path padrão do sistema informar onde se encontra o banco de dados.
 
 
 10 - Adicionar um campo tarefa concluida a tabela tarefa - juntamente com seus getters e setters

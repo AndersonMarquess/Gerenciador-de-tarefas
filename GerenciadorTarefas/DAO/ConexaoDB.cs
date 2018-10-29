@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
+using System.IO;
 
 namespace GerenciadorTarefas.DAO
 {
@@ -41,7 +42,11 @@ namespace GerenciadorTarefas.DAO
 
         private string getConnPath() {
             string provider = @"Provider=Microsoft.Jet.OLEDB.4.0;";
-            string dataSource = @"Data Source=C:\Users\Anderson\Desktop\GestaoTarefas.mdb";
+
+            string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string filePath = Path.Combine(desktop, "GestaoTarefas.mdb");
+
+            string dataSource = @"Data Source=" + filePath;
 
             return provider + dataSource;
         }
