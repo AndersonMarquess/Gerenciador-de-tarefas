@@ -38,7 +38,6 @@ namespace GerenciadorTarefas.Controllers
                 dao.insert(diario);
                 return RedirectToAction("Index");
             }
-            //No start show modal colocar uma condição para saber se a tarefa é a de mesmo id que o enviado e se sim
             return BuscarTarefas(diario.IdAluno);
         }
 
@@ -58,7 +57,5 @@ namespace GerenciadorTarefas.Controllers
 
             return RedirectToAction("Informacoes", "Aluno", new { id = diario.IdAluno });
         }
-
-
     }
 }

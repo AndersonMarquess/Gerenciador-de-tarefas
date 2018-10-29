@@ -67,7 +67,7 @@ namespace GerenciadorTarefas.Controllers
             };
             dao.addFaltaAluno(d);
 
-            return RedirectToAction("Informacoes", id);
+            return RedirectToAction("Informacoes", "Aluno", new { id } );
         }
 
         [HttpPost]
@@ -76,7 +76,7 @@ namespace GerenciadorTarefas.Controllers
             var data = DateTime.Parse(dataFalta);
             dao.removerFaltaByAlunoId(id, data);
 
-            return RedirectToAction("Informacoes", id);
+            return RedirectToAction("Informacoes", "Aluno", new { id });
         }
 
         public ActionResult Editar(int id) {

@@ -79,4 +79,4 @@
 
 
 #BUGS
-1 - Exception ao adicionar uma falta no aluno
+#1 - Exception ao adicionar uma falta no aluno
