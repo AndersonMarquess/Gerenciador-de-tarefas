@@ -16,7 +16,7 @@ namespace GerenciadorTarefas
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Administrador", action = "Index", id = UrlParameter.Optional }//controller padrão é Home
+                defaults: new { controller = "Administrador", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

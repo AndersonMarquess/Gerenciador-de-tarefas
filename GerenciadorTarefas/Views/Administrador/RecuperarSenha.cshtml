@@ -36,20 +36,20 @@
                 <h2>Recuperar senha</h2>
                 <div class="form-group">
                     <label>Login</label>
-                    <input class="form-control" type="text" name="login" />
+                    <input class="form-control" type="text" name="login" required/>
                     <span style="color:red;">@Html.ValidationMessage("erro-login")</span>
                 </div>
                 <div class="form-group">
                     <label>Palavra de backup</label>
-                    <input class="form-control" type="password" name="palavraBackup" placeholder="Palavra para recuperar a senha." />
+                    <input class="form-control" type="password" name="palavraBackup" placeholder="Palavra para recuperar a senha." required/>
                 </div>
                 <div class="form-group">
                     <label>Nova senha</label>
-                    <input class="form-control" type="password" name="senha" id="senha" />
+                    <input class="form-control" type="password" name="senha" id="senha" required/>
                 </div>
                 <div class="form-group">
                     <label>Repetir nova senha</label>
-                    <input class="form-control" type="password" name="senha2" id="senha2" />
+                    <input class="form-control" type="password" name="senha2" id="senha2" required/>
                     <span id="msg"></span>
                 </div>
                 <button id="btn" class="btn btn-success btn-block" type="submit">Recuperar</button>

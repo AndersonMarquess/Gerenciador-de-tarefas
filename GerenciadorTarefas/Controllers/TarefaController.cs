@@ -31,8 +31,8 @@ namespace GerenciadorTarefas.Controllers
         }
 
         public ActionResult Listar() {
-            var aluno = Session["usuarioLogado"] as Administrador;
-            ViewBag.Tarefas = dao.findAll(aluno.Id);
+            var admin = Session["usuarioLogado"] as Administrador;
+            ViewBag.Tarefas = dao.findAll(admin.Id);
 
             return View();
         }

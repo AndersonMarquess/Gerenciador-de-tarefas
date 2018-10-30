@@ -197,19 +197,6 @@ namespace GerenciadorTarefas.DAO
             return inserirCidade(endereco, idEstado);
         }
 
-        //private int updateEstado(Endereco endereco) {
-        //    var idEstado = findEstadoId(endereco);
-        //    if(idEstado >= 0) {
-        //        var commandEstadoUpdate = new OleDbCommand();
-        //        commandEstadoUpdate.CommandText = @"UPDATE Estado SET Nome = @Nome WHERE Id = @IdEstado";
-        //        commandEstadoUpdate.Parameters.AddWithValue("@Nome", endereco.Estado);
-        //        commandEstadoUpdate.Parameters.AddWithValue("@IdEstado", idEstado);
-        //        dao.executarQuerySemRetorno(commandEstadoUpdate);
-        //        return findEstadoId(endereco);
-        //    }
-        //    return inserirEstado(endereco);
-        //}
-
         private int inserirEstado(Endereco endereco) {
             var idEstado = findEstadoId(endereco);
             if(idEstado >= 0) {

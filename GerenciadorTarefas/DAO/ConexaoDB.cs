@@ -40,11 +40,12 @@ namespace GerenciadorTarefas.DAO
             }
         }
 
+        //Procura o banco de dados access com nome "AMGestaoTarefas.mdb" no desktop do usuário.
         private string getConnPath() {
             string provider = @"Provider=Microsoft.Jet.OLEDB.4.0;";
 
             string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            string filePath = Path.Combine(desktop, "GestaoTarefas.mdb");
+            string filePath = Path.Combine(desktop, "AMGestaoTarefas.mdb");
 
             string dataSource = @"Data Source=" + filePath;
 
@@ -95,26 +96,7 @@ namespace GerenciadorTarefas.DAO
             return notas;
         }
 
-        //internal List<DiarioDeNota> querListaDiarioDeNota(OleDbCommand command) {
-        //    abrirConexao();
-        //    var notas = new List<DiarioDeNota>();
-
-        //    command.Connection = _conn;
-        //    OleDbDataReader reader = command.ExecuteReader();
-
-        //    while(reader.Read()) {
-        //        var nota = new DiarioDeNota() {
-        //            Id = (int)reader[0];
-        //        };
-        //        notas.Add(nota);
-        //    }
-
-
-        //    fecharConexao();
-        //    return notas;
-        //}
-
-        internal int queryForId(OleDbCommand command) {
+        public int queryForId(OleDbCommand command) {
             abrirConexao();
             int id = -1;
 
