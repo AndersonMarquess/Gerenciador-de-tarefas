@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("GerenciadorTarefas")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("PIM VIII")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Anderson Marques")]
 [assembly: AssemblyProduct("GerenciadorTarefas")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCopyright("Copyright ©  2018 - Anderson Marques")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
