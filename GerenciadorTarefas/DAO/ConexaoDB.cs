@@ -40,12 +40,12 @@ namespace GerenciadorTarefas.DAO
             }
         }
 
-        //Procura o banco de dados access com nome "AMGestaoTarefas.mdb" no desktop do usuário.
+        //Procura o banco de dados access com nome "GestaoTarefas.mdb" no desktop do usuário.
         private string getConnPath() {
             string provider = @"Provider=Microsoft.Jet.OLEDB.4.0;";
 
             string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            string filePath = Path.Combine(desktop, "AMGestaoTarefas.mdb");
+            string filePath = Path.Combine(desktop, "GestaoTarefas.mdb");
 
             string dataSource = @"Data Source=" + filePath;
 

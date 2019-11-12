@@ -32,8 +32,9 @@ namespace GerenciadorTarefas.DAO
         public List<Tarefa> findAll(int idAdmin) {
             try {
                 var command = new OleDbCommand();
-                command.CommandText = @"SELECT * FROM Tarefas WHERE IdAdmin = @idAdmin AND Concluido = 0";
+                command.CommandText = @"SELECT * FROM Tarefas WHERE IdAdmin = @idAdmin AND Concluido = @concluido";
                 command.Parameters.AddWithValue("@idAdmin", idAdmin);
+                command.Parameters.AddWithValue("@concluido", 0);
                 return dao.queryListaTarefa(command);
             } catch(Exception) {
                 return null;
@@ -43,8 +44,9 @@ namespace GerenciadorTarefas.DAO
         public List<Tarefa> findAllByTipo(TipoTarefa tipo) {
             try {
                 var command = new OleDbCommand();
-                command.CommandText = @"SELECT * FROM Tarefas WHERE TipoDaTarefa = @tipo AND Concluido = 0";
+                command.CommandText = @"SELECT * FROM Tarefas WHERE TipoDaTarefa = @tipo AND Concluido = @concluido";
                 command.Parameters.AddWithValue("@tipo", tipo.ToString());
+                command.Parameters.AddWithValue("@concluido", 0);
                 return dao.queryListaTarefa(command);
             } catch(Exception) {
                 return null;
