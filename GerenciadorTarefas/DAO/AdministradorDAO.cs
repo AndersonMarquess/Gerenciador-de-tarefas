@@ -1,69 +1,49 @@
 ﻿using GerenciadorTarefas.Models;
-using System;
-using System.Data.OleDb;
+using System.Linq;
 
-namespace GerenciadorTarefas.DAO
-{
-    public class AdministradorDAO : IAdministradorDAO
-    {
+namespace GerenciadorTarefas.DAO {
+    public class AdministradorDAO : IAdministradorDAO {
 
-        private ConexaoDB dao = ConexaoDB.getInstance();
+        private readonly GerenciadorTarefasContext _context;
 
-        public void delete(int id) {
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"DELETE FROM Alunos WHERE Id = @id";
-                command.Parameters.AddWithValue("@id", id);
-
-                dao.executarQuerySemRetorno(command);
-            } catch(Exception) { }
+        public AdministradorDAO(GerenciadorTarefasContext context) {
+            _context = context;
         }
 
-        public Administrador findByCredenciais(string login) {
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"SELECT * FROM Administradores WHERE Login = @login";
-                command.Parameters.AddWithValue("@login", login);
-
-                return dao.queryAdministrador(command);
-            } catch(Exception) {
-                return null;
+        public void Delete(int id) {
+            var admin = FindById(id);
+            if(admin != null) {
+                _context.Administrador.Remove(admin);
+                _context.SaveChanges();
             }
         }
 
-        public void insert(Administrador admin) {
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"INSERT INTO Administradores (Nome, Login, Senha, PalavraBackup) VALUES (@nome, @login, @senha, @palavra)";
-                command.Parameters.AddWithValue("@nome", admin.Nome);
-                command.Parameters.AddWithValue("@login", admin.Login);
-                command.Parameters.AddWithValue("@senha", admin.Senha);
-                command.Parameters.AddWithValue("@palavra", admin.PalavraBackup);
-
-                dao.executarQuerySemRetorno(command);
-            } catch(Exception) { }
+        private Administrador FindById(int id) {
+            return _context.Administrador.FirstOrDefault(a => a.Id == id);
         }
 
-        public void update(Administrador admin) {
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"UPDATE Administradores SET Nome = @nome, Login = @login, Senha = @senha";
-                command.Parameters.AddWithValue("@nome", admin.Nome);
-                command.Parameters.AddWithValue("@login", admin.Login);
-                command.Parameters.AddWithValue("@senha", admin.Senha);
-
-                dao.executarQuerySemRetorno(command);
-            } catch(Exception) { }
+        public Administrador FindByCredenciais(string login) {
+            return _context.Administrador.Where(a => a.Login.Equals(login)).FirstOrDefault();
         }
 
-        public void updateSenha(Administrador admin) {
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"UPDATE Administradores SET Senha = @senha";
-                command.Parameters.AddWithValue("@senha", admin.Senha);
+        public void Insert(Administrador admin) {
+            _context.Administrador.Add(admin);
+            _context.SaveChanges();
+        }
 
-                dao.executarQuerySemRetorno(command);
-            } catch(Exception) { }
+        public void Update(Administrador admin) {
+            var adminAntigo = FindById(admin.Id);
+            adminAntigo.Login = admin.Login;
+            adminAntigo.Nome = admin.Nome;
+            adminAntigo.PalavraBackup = admin.PalavraBackup;
+            adminAntigo.Senha = admin.Senha;
+            _context.SaveChanges();
+        }
+
+        public void UpdateSenha(Administrador admin) {
+            var adminAntigo = FindByCredenciais(admin.Login);
+            adminAntigo.Senha = admin.Senha;
+            _context.SaveChanges();
         }
     }
 }

@@ -1,14 +1,16 @@
-﻿using GerenciadorTarefas.DAO;
-using GerenciadorTarefas.Filtros;
+﻿using GerenciadorTarefas.Filtros;
 using GerenciadorTarefas.Models;
-using System;
+using GerenciadorTarefas.Services;
 using System.Web.Mvc;
 
-namespace GerenciadorTarefas.Controllers
-{
-    public class AdministradorController : Controller
-    {
-        private IAdministradorDAO dao = new AdministradorDAO();
+namespace GerenciadorTarefas.Controllers {
+    public class AdministradorController : Controller {
+
+        private readonly IAdministradorService _adminService;
+
+        public AdministradorController(IAdministradorService adminService) {
+            _adminService = adminService;
+        }
 
         public ActionResult Index() {
             return View();
@@ -17,15 +19,11 @@ namespace GerenciadorTarefas.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Entrar(string login, string senha) {
-            Administrador admin = dao.findByCredenciais(login);
+            Administrador admin = _adminService.Entrar(login, senha);
 
             if(admin != null) {
-                bool isSenhaValida = BCrypt.Net.BCrypt.Verify(senha, admin.Senha);
-
-                if(isSenhaValida) {
-                    Session["usuarioLogado"] = admin;
-                    return RedirectToAction("Index", "Tarefa");
-                }
+                Session["usuarioLogado"] = admin;
+                return RedirectToAction("Index", "Tarefa");
             }
 
             ModelState.AddModelError("erro-login", "Login e senha não correspondem.");
@@ -39,16 +37,15 @@ namespace GerenciadorTarefas.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Cadastrar(Administrador admin) {
-            var a = dao.findByCredenciais(admin.Login);
+        public ActionResult Cadastrar(Administrador administrador) {
+            var inserido = _adminService.Cadastrar(administrador);
 
-            if(a != null) {
-                ModelState.AddModelError("erro-login", "Este login não está disponível.");
-                return View("Form");
+            if(inserido) {
+                return RedirectToAction("Index");
             }
 
-            dao.insert(admin);
-            return RedirectToAction("Index");
+            ModelState.AddModelError("erro-login", "Este login não está disponível.");
+            return View("Form");
         }
 
         public ActionResult Logout() {
@@ -62,23 +59,14 @@ namespace GerenciadorTarefas.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Atualizar(Administrador adminNovo) {
-            Administrador admin = dao.findByCredenciais(adminNovo.Login);
-            if(admin == null) {
+        public ActionResult Atualizar(Administrador administrador) {
+            bool atualizou = _adminService.AtualizarSenha(administrador);
+            if(atualizou) {
+                return Logout();
+            } else {
                 ModelState.AddModelError("erro-login", "Dados incorretos.");
                 return View("RecuperarSenha");
             }
-
-            var dadosInvalidos = !admin.Login.Equals(adminNovo.Login) 
-                && !admin.PalavraBackup.Equals(adminNovo.PalavraBackup);
-
-            if(dadosInvalidos) {
-                ModelState.AddModelError("erro-login", "Dados incorretos.");
-                return View("RecuperarSenha");
-            }
-
-            dao.updateSenha(adminNovo);
-            return RedirectToAction("Index");
         }
     }
 }

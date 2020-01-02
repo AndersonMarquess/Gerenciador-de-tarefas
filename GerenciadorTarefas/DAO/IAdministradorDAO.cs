@@ -1,16 +1,16 @@
 ﻿using GerenciadorTarefas.Models;
 
-namespace GerenciadorTarefas.DAO
-{
-    interface IAdministradorDAO {
-        Administrador findByCredenciais(string login);
+namespace GerenciadorTarefas.DAO {
+    public interface IAdministradorDAO {
 
-        void insert(Administrador admin);
+        Administrador FindByCredenciais(string login);
 
-        void update(Administrador admin);
+        void Insert(Administrador admin);
 
-        void updateSenha(Administrador admin);
+        void Update(Administrador admin);
 
-        void delete(int id);
+        void UpdateSenha(Administrador admin);
+
+        void Delete(int id);
     }
 }

@@ -1,4 +1,5 @@
 using GerenciadorTarefas.DAO;
+using GerenciadorTarefas.Services;
 using System;
 using System.Web.Mvc;
 using Unity;
@@ -51,6 +52,7 @@ namespace GerenciadorTarefas {
             container.RegisterType<IAlunoDAO, AlunoDAO>();
             container.RegisterType<IDiarioDeNotaDAO, DiarioDeNotaDAO>();
             container.RegisterType<ITarefaDAO, TarefaDAO>();
+            container.RegisterType<IAdministradorService, AdministradorService>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }
