@@ -10,5 +10,6 @@ namespace GerenciadorTarefas.DAO {
         public GerenciadorTarefasContext() : base("MySqlPath") { }
 
         public DbSet<Administrador> Administrador { get; set; }
+        public DbSet<Tarefa> Tarefa { get; set; }
     }
 }

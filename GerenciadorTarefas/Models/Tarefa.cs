@@ -1,8 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace GerenciadorTarefas.Models
-{
+namespace GerenciadorTarefas.Models {
     public class Tarefa {
 
         public int Id { get; set; }
@@ -13,7 +12,7 @@ namespace GerenciadorTarefas.Models
         [StringLength(250, MinimumLength = 5, ErrorMessage = "A Descrição é obrigatória deve conter entre 5 e 250 caracteres.")]
         public string Descricao { get; set; }
         public int IdAdmin { get; set; }
-        public int Concluida { get; set; }
+        public AndamentoTarefa Andamento { get; set; } = AndamentoTarefa.Em_Andamento;
 
         public Tarefa() { }
 
@@ -24,7 +23,7 @@ namespace GerenciadorTarefas.Models
                 DataLimite = dataLimite;
                 Descricao = descricao;
                 IdAdmin = IdAdmin;
-            } catch (Exception e) {
+            } catch(Exception e) {
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);
             }

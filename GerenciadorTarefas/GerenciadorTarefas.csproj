@@ -164,6 +164,10 @@
     <Compile Include="Migrations\202001012021371_Initial.Designer.cs">
       <DependentUpon>202001012021371_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001021925270_Tarefa.cs" />
+    <Compile Include="Migrations\202001021925270_Tarefa.Designer.cs">
+      <DependentUpon>202001021925270_Tarefa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Administrador.cs" />
     <Compile Include="Models\Aluno.cs" />
@@ -171,11 +175,14 @@
     <Compile Include="Models\DiarioDePresenca.cs" />
     <Compile Include="Models\Endereco.cs" />
     <Compile Include="Models\Pessoa.cs" />
+    <Compile Include="Models\AndamentoTarefa.cs" />
     <Compile Include="Models\Tarefa.cs" />
     <Compile Include="Models\TipoTarefa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AdministradorService.cs" />
     <Compile Include="Services\IAdministradorService.cs" />
+    <Compile Include="Services\ITarefaService.cs" />
+    <Compile Include="Services\TarefaService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -205,6 +212,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202001012021371_Initial.resx">
       <DependentUpon>202001012021371_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001021925270_Tarefa.resx">
+      <DependentUpon>202001021925270_Tarefa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

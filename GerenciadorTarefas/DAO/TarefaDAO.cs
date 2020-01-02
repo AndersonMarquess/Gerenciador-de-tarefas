@@ -1,92 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
 using System.Linq;
 using GerenciadorTarefas.Models;
 
-namespace GerenciadorTarefas.DAO
-{
+namespace GerenciadorTarefas.DAO {
     public class TarefaDAO : ITarefaDAO {
 
-        private ConexaoDB dao = ConexaoDB.getInstance();
+        private readonly GerenciadorTarefasContext _context;
 
-        public void concluir(int id) {
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"UPDATE Tarefas SET Concluido = @Concluido WHERE Id = @id";
-                command.Parameters.AddWithValue("@Concluido", 1);
-                command.Parameters.AddWithValue("@id", id);
-                dao.executarQuerySemRetorno(command);
-            } catch(Exception) { }
+        public TarefaDAO(GerenciadorTarefasContext context) {
+            _context = context;
         }
 
-        public void delete(int id) {
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"DELETE FROM Tarefas WHERE Id = @id";
-                command.Parameters.AddWithValue("@id", id);
-                dao.executarQuerySemRetorno(command);
-            } catch(Exception) { }
-        }
-
-        public List<Tarefa> findAll(int idAdmin) {
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"SELECT * FROM Tarefas WHERE IdAdmin = @idAdmin AND Concluido = @concluido";
-                command.Parameters.AddWithValue("@idAdmin", idAdmin);
-                command.Parameters.AddWithValue("@concluido", 0);
-                return dao.queryListaTarefa(command);
-            } catch(Exception) {
-                return null;
+        public void RemoverPorId(int id) {
+            var tarefa = BuscarPorId(id);
+            if(tarefa != null) {
+                _context.Tarefa.Remove(tarefa);
+                _context.SaveChanges();
             }
         }
 
-        public List<Tarefa> findAllByTipo(TipoTarefa tipo) {
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"SELECT * FROM Tarefas WHERE TipoDaTarefa = @tipo AND Concluido = @concluido";
-                command.Parameters.AddWithValue("@tipo", tipo.ToString());
-                command.Parameters.AddWithValue("@concluido", 0);
-                return dao.queryListaTarefa(command);
-            } catch(Exception) {
-                return null;
+        public List<Tarefa> BuscarTodasPorAdmin(int idAdmin) {
+            return _context.Tarefa
+                .Where(t => t.IdAdmin == idAdmin && t.Andamento == AndamentoTarefa.Em_Andamento)
+                .ToList();
+        }
+
+        public List<Tarefa> BuscarTodasPorTipo(TipoTarefa tipo) {
+            return _context.Tarefa
+                .Where(t => t.TipoDaTarefa == tipo && t.Andamento == AndamentoTarefa.Em_Andamento)
+                .ToList();
+        }
+
+        public Tarefa BuscarPorId(int id) {
+            return _context.Tarefa.FirstOrDefault(t => t.Id == id);
+        }
+
+        public void Cadastrar(Tarefa tarefa) {
+            _context.Tarefa.Add(tarefa);
+            _context.SaveChanges();
+        }
+
+        public void Atualizar(Tarefa tarefa) {
+            var tarefaAntiga = BuscarPorId(tarefa.Id);
+            if(tarefaAntiga != null) {
+                tarefaAntiga.TipoDaTarefa = tarefa.TipoDaTarefa;
+                tarefaAntiga.DataLimite = tarefa.DataLimite;
+                tarefaAntiga.Descricao = tarefa.Descricao;
+                _context.SaveChanges();
             }
-        }
-
-        public Tarefa findById(int id) {
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"SELECT * FROM Tarefas WHERE Id = @id";
-                command.Parameters.AddWithValue("@id", id);
-                return dao.queryListaTarefa(command).First();
-            } catch(Exception) {
-                return null;
-            }
-
-        }
-
-        public void insert(Tarefa tarefa) {
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"INSERT INTO Tarefas (TipoDaTarefa, DataLimite, Descricao, IdAdmin) VALUES (@tipo, @dataLimite, @descricao, @idAdmin)";
-                command.Parameters.AddWithValue("@tipo", tarefa.TipoDaTarefa.ToString());
-                command.Parameters.AddWithValue("@dataLimite", tarefa.getDataFormatada());
-                command.Parameters.AddWithValue("@descricao", tarefa.Descricao);
-                command.Parameters.AddWithValue("@idAdmin", tarefa.IdAdmin);
-                dao.executarQuerySemRetorno(command);
-            } catch(Exception) { }
-        }
-
-        public void update(Tarefa tarefa) {
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"UPDATE Tarefas SET TipoDaTarefa = @tipo, DataLimite = @dataLimite, Descricao = @descricao WHERE Id = @id";
-                command.Parameters.AddWithValue("@tipo", tarefa.TipoDaTarefa.ToString());
-                command.Parameters.AddWithValue("@dataLimite", tarefa.getDataFormatada());
-                command.Parameters.AddWithValue("@descricao", tarefa.Descricao);
-                command.Parameters.AddWithValue("@id", tarefa.Id);
-                dao.executarQuerySemRetorno(command);
-            } catch(Exception) { }
         }
     }
 }

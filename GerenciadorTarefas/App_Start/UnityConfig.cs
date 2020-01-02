@@ -53,6 +53,7 @@ namespace GerenciadorTarefas {
             container.RegisterType<IDiarioDeNotaDAO, DiarioDeNotaDAO>();
             container.RegisterType<ITarefaDAO, TarefaDAO>();
             container.RegisterType<IAdministradorService, AdministradorService>();
+            container.RegisterType<ITarefaService, TarefaService>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

@@ -1,15 +1,17 @@
-﻿using GerenciadorTarefas.DAO;
-using GerenciadorTarefas.Filtros;
+﻿using GerenciadorTarefas.Filtros;
 using GerenciadorTarefas.Models;
-using System;
+using GerenciadorTarefas.Services;
 using System.Web.Mvc;
 
-namespace GerenciadorTarefas.Controllers
-{
+namespace GerenciadorTarefas.Controllers {
+
     [AutorizacaoFilter]
-    public class TarefaController : Controller
-    {
-        private ITarefaDAO dao = new TarefaDAO();
+    public class TarefaController : Controller {
+        private readonly ITarefaService _tarefaService;
+
+        public TarefaController(ITarefaService tarefaService) {
+            _tarefaService = tarefaService;
+        }
 
         public ActionResult Index() {
             return View("Buscar");
@@ -18,31 +20,27 @@ namespace GerenciadorTarefas.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ListarPorTipo(string tipoDaTarefa) {
-            var aluno = Session["usuarioLogado"] as Administrador;
-
-            if(tipoDaTarefa == null)
+            if(tipoDaTarefa == null) {
                 return View("Buscar");
-
-            TipoTarefa tipo = (TipoTarefa)Enum.Parse(typeof(TipoTarefa), tipoDaTarefa);
-            var tarefas = dao.findAllByTipo(tipo);
+            }
+            var tarefas = _tarefaService.BuscarTodasPorTipo(tipoDaTarefa);
             ViewBag.Tarefas = tarefas;
 
             return View("Listar");
         }
 
         public ActionResult Listar() {
-            var admin = Session["usuarioLogado"] as Administrador;
-            ViewBag.Tarefas = dao.findAll(admin.Id);
+            var admin = GetUsuarioLogado();
+            ViewBag.Tarefas = _tarefaService.BuscarTodasPorIdAdmin(admin.Id);
 
             return View();
         }
 
+        private Administrador GetUsuarioLogado() {
+            return Session["usuarioLogado"] as Administrador;
+        }
+
         public ActionResult Form() {
-            var admin = Session["usuarioLogado"] as Administrador;
-
-            if(admin == null)
-                return RedirectToAction("Index", "Admin");
-
             ViewBag.Tarefa = new Tarefa();
             return View("Cadastrar");
         }
@@ -50,29 +48,25 @@ namespace GerenciadorTarefas.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Cadastrar(Tarefa tarefa) {
-            ViewBag.Tarefa = tarefa;
-
-            var view = validarTarefa(tarefa, "Cadastrar");
-            if(view != null)
-                return view;
-
-            if(ModelState.IsValid) {
-                dao.insert(tarefa);
+            if(_tarefaService.Cadastrar(tarefa)) {
                 return RedirectToAction("Listar");
+            } else {
+                @ViewBag.t = tarefa;
+                ModelState.AddModelError("erro-data", "A Data limite deve ser maior ou igual a hoje.");
+                return View("Cadastrar");
             }
-
-            return View("Cadastrar");
         }
 
         public ActionResult Concluida(int id) {
-            dao.concluir(id);
+            _tarefaService.Concluir(id);
             return RedirectToAction("Listar");
         }
 
         public ActionResult Editar(int id) {
-            var tarefa = dao.findById(id);
-            if(tarefa == null)
-                RedirectToAction("Listar");
+            var tarefa = _tarefaService.BuscarPorId(id);
+            if(tarefa == null) {
+                return RedirectToAction("Listar");
+            }
 
             ViewBag.t = tarefa;
             return View();
@@ -81,28 +75,20 @@ namespace GerenciadorTarefas.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Atualizar(Tarefa tarefa) {
-            var view = validarTarefa(tarefa, "Editar");
-            if(view != null)
-                return view;
-
-            dao.update(tarefa);
-            return RedirectToAction("Listar");
+            if(_tarefaService.Atualizar(tarefa)) {
+                return RedirectToAction("Listar");
+            } else {
+                @ViewBag.t = tarefa;
+                ModelState.AddModelError("erro-data", "A Data limite deve ser maior ou igual a hoje.");
+                return View("Editar");
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Remover(int id) {
-            dao.delete(id);
+            _tarefaService.RemoverPorId(id);
             return RedirectToAction("Listar");
-        }
-
-        private ActionResult validarTarefa(Tarefa tarefa, string viewName) {
-            if(tarefa.DataLimite < DateTime.Today) {
-                @ViewBag.t = tarefa;
-                ModelState.AddModelError("erro-data", "A Data limite deve ser maior ou igual a hoje.");
-                return View(viewName);
-            }
-            return null;
         }
     }
 }

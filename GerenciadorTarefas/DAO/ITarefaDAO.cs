@@ -1,22 +1,19 @@
 ﻿using GerenciadorTarefas.Models;
 using System.Collections.Generic;
 
-namespace GerenciadorTarefas.DAO
-{
-    interface ITarefaDAO {
+namespace GerenciadorTarefas.DAO {
+    public interface ITarefaDAO {
 
-        List<Tarefa> findAllByTipo(TipoTarefa tipo);
+        List<Tarefa> BuscarTodasPorTipo(TipoTarefa tipo);
 
-        List<Tarefa> findAll(int id);
+        List<Tarefa> BuscarTodasPorAdmin(int id);
 
-        Tarefa findById(int id);
+        Tarefa BuscarPorId(int id);
 
-        void insert(Tarefa tarefa);
+        void Cadastrar(Tarefa tarefa);
 
-        void update(Tarefa tarefa);
+        void Atualizar(Tarefa tarefa);
 
-        void delete(int id);
-
-        void concluir(int id);
+        void RemoverPorId(int id);
     }
 }
