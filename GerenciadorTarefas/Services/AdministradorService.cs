@@ -14,13 +14,13 @@ namespace GerenciadorTarefas.Services {
             if(LoginExiste(administrador)) {
                 return false;
             } else {
-                _adminDao.Insert(administrador);
+                _adminDao.Cadastrar(administrador);
                 return true;
             }
         }
 
         public Administrador Entrar(string login, string senha) {
-            var admin = _adminDao.FindByCredenciais(login);
+            var admin = _adminDao.BuscarPorLogin(login);
             var senhaValida = BCrypt.Net.BCrypt.Verify(senha, admin.Senha);
 
             if(senhaValida) {
@@ -31,7 +31,7 @@ namespace GerenciadorTarefas.Services {
 
         public bool AtualizarSenha(Administrador administrador) {
             if(LoginExiste(administrador)) {
-                _adminDao.UpdateSenha(administrador);
+                _adminDao.AtualizarSenha(administrador);
                 return true;
             } else {
                 return false;
@@ -39,7 +39,7 @@ namespace GerenciadorTarefas.Services {
         }
 
         private bool LoginExiste(Administrador administrador) {
-            return _adminDao.FindByCredenciais(administrador.Login) != null;
+            return _adminDao.BuscarPorLogin(administrador.Login) != null;
         }
     }
 }

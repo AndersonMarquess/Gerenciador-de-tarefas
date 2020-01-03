@@ -3,14 +3,16 @@
 namespace GerenciadorTarefas.DAO {
     public interface IAdministradorDAO {
 
-        Administrador FindByCredenciais(string login);
+        Administrador BuscarPorLogin(string login);
+        
+        Administrador BuscarPorId(int id);
+        
+        void Cadastrar(Administrador admin);
 
-        void Insert(Administrador admin);
+        void Atualizar(Administrador admin);
 
-        void Update(Administrador admin);
+        void AtualizarSenha(Administrador admin);
 
-        void UpdateSenha(Administrador admin);
-
-        void Delete(int id);
+        void Remover(Administrador admin);
     }
 }

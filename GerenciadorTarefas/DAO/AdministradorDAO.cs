@@ -1,4 +1,5 @@
 ﻿using GerenciadorTarefas.Models;
+using System.Data.Entity.Migrations;
 using System.Linq;
 
 namespace GerenciadorTarefas.DAO {
@@ -10,38 +11,31 @@ namespace GerenciadorTarefas.DAO {
             _context = context;
         }
 
-        public void Delete(int id) {
-            var admin = FindById(id);
-            if(admin != null) {
-                _context.Administrador.Remove(admin);
-                _context.SaveChanges();
-            }
+        public void Remover(Administrador admin) {
+            _context.Administrador.Remove(admin);
+            _context.SaveChanges();
         }
 
-        private Administrador FindById(int id) {
+        public Administrador BuscarPorId(int id) {
             return _context.Administrador.FirstOrDefault(a => a.Id == id);
         }
 
-        public Administrador FindByCredenciais(string login) {
+        public Administrador BuscarPorLogin(string login) {
             return _context.Administrador.Where(a => a.Login.Equals(login)).FirstOrDefault();
         }
 
-        public void Insert(Administrador admin) {
+        public void Cadastrar(Administrador admin) {
             _context.Administrador.Add(admin);
             _context.SaveChanges();
         }
 
-        public void Update(Administrador admin) {
-            var adminAntigo = FindById(admin.Id);
-            adminAntigo.Login = admin.Login;
-            adminAntigo.Nome = admin.Nome;
-            adminAntigo.PalavraBackup = admin.PalavraBackup;
-            adminAntigo.Senha = admin.Senha;
+        public void Atualizar(Administrador admin) {
+            _context.Administrador.AddOrUpdate(admin);
             _context.SaveChanges();
         }
 
-        public void UpdateSenha(Administrador admin) {
-            var adminAntigo = FindByCredenciais(admin.Login);
+        public void AtualizarSenha(Administrador admin) {
+            var adminAntigo = BuscarPorLogin(admin.Login);
             adminAntigo.Senha = admin.Senha;
             _context.SaveChanges();
         }
