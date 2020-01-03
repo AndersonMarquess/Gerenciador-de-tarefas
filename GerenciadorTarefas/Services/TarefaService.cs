@@ -13,7 +13,8 @@ namespace GerenciadorTarefas.Services {
         }
 
         public bool Atualizar(Tarefa tarefa) {
-            if(PossuiDataValida(tarefa)) {
+            var tarefaAntiga = BuscarPorId(tarefa.Id);
+            if(tarefaAntiga != null && PossuiDataValida(tarefa)) {
                 _tarefaDao.Atualizar(tarefa);
                 return true;
             } else {
@@ -46,8 +47,10 @@ namespace GerenciadorTarefas.Services {
 
         public void Concluir(int idTarefa) {
             var tarefa = BuscarPorId(idTarefa);
-            tarefa.Andamento = AndamentoTarefa.Concluido;
-            _tarefaDao.Atualizar(tarefa);
+            if(tarefa != null) {
+                tarefa.Andamento = AndamentoTarefa.Concluido;
+                _tarefaDao.Atualizar(tarefa);
+            }
         }
 
         public void RemoverPorId(int id) {

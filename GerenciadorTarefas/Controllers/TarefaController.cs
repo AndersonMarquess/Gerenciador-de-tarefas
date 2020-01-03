@@ -48,6 +48,7 @@ namespace GerenciadorTarefas.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Cadastrar(Tarefa tarefa) {
+            tarefa.IdAdmin = GetUsuarioLogado().Id;
             if(_tarefaService.Cadastrar(tarefa)) {
                 return RedirectToAction("Listar");
             } else {

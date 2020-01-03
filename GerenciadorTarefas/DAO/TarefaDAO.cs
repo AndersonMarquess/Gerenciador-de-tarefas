@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using GerenciadorTarefas.Models;
 
@@ -42,13 +42,12 @@ namespace GerenciadorTarefas.DAO {
         }
 
         public void Atualizar(Tarefa tarefa) {
-            var tarefaAntiga = BuscarPorId(tarefa.Id);
-            if(tarefaAntiga != null) {
-                tarefaAntiga.TipoDaTarefa = tarefa.TipoDaTarefa;
-                tarefaAntiga.DataLimite = tarefa.DataLimite;
-                tarefaAntiga.Descricao = tarefa.Descricao;
-                _context.SaveChanges();
-            }
+            _context.Tarefa.AddOrUpdate(tarefa);
+            _context.SaveChanges();
+        }
+
+        public IEnumerable<Tarefa> BuscarTodas() {
+            return _context.Tarefa.ToList();
         }
     }
 }

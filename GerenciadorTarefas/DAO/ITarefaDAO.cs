@@ -15,5 +15,7 @@ namespace GerenciadorTarefas.DAO {
         void Atualizar(Tarefa tarefa);
 
         void RemoverPorId(int id);
+
+        IEnumerable<Tarefa> BuscarTodas();
     }
 }
