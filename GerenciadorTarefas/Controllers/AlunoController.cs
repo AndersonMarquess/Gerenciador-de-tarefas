@@ -1,20 +1,26 @@
 ﻿using GerenciadorTarefas.DAO;
 using GerenciadorTarefas.Filtros;
 using GerenciadorTarefas.Models;
+using GerenciadorTarefas.Services;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
-namespace GerenciadorTarefas.Controllers
-{
-    [AutorizacaoFilter]
-    public class AlunoController : Controller
-    {
-        IAlunoDAO dao = new AlunoDAO();
-        IDiarioDeNotaDAO diarioDAO = new DiarioDeNotaDAO();
+namespace GerenciadorTarefas.Controllers {
 
-        // GET: Aluno
+    [AutorizacaoFilter]
+    public class AlunoController : Controller {
+
+        private readonly IAlunoService _alunoService;
+        private readonly IDiarioDeNotaService _diarioDeNotaService;
+
+        public AlunoController(IAlunoService alunoService, IDiarioDeNotaService diarioDeNotaService) {
+            _alunoService = alunoService;
+            _diarioDeNotaService = diarioDeNotaService;
+        }
+
         public ActionResult Index() {
+            ViewBag.Alunos = _alunoService.BuscarTodos();
             return View();
         }
 
@@ -29,7 +35,7 @@ namespace GerenciadorTarefas.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Cadastrar(Aluno aluno) {
             if(ModelState.IsValid) {
-                dao.insert(aluno);
+                _alunoService.Cadastrar(aluno);
                 return RedirectToAction("Index", "Tarefa");
             }
 
@@ -38,50 +44,41 @@ namespace GerenciadorTarefas.Controllers
         }
 
         public ActionResult Listar() {
-            ViewBag.Alunos = dao.findAll();
+            ViewBag.Alunos = _alunoService.BuscarTodos();
             return View();
         }
 
         public ActionResult Informacoes(int id) {
-            if(id < 0)
+            var aluno = _alunoService.BuscarPorId(id);
+            if(aluno == null) {
                 return RedirectToAction("Listar");
+            }
 
-            Aluno aluno = dao.findById(id);
-
-            HashSet<DiarioDePresenca> faltas = dao.findAllFaltasByAlunoId(id);
-            ViewBag.Faltas = faltas;
-
-            List<DiarioDeNota> notas = diarioDAO.findTarefasEntreguesByAlunoId(id);
-            ViewBag.Notas = notas;
-
+            ViewBag.Faltas = _alunoService.BuscarFaltasDoAlunoComId(id);
+            ViewBag.Notas = _diarioDeNotaService.BuscarDiariosDeTarefasEntregueDoAlunoComId(id);
             ViewBag.Aluno = aluno;
+
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddFalta(int id) {
-            var d = new DiarioDePresenca() {
-                IdAluno = id,
-                DataDaFalta = DateTime.Parse(DateTime.Now.ToShortDateString())
-            };
-            dao.addFaltaAluno(d);
+            _alunoService.AdicionarFaltaAoAlunoComId(id);
 
-            return RedirectToAction("Informacoes", "Aluno", new { id } );
+            return RedirectToAction("Informacoes", "Aluno", new { id });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult RemoverFalta(int id, string dataFalta) {
-            var data = DateTime.Parse(dataFalta);
-            dao.removerFaltaByAlunoId(id, data);
+            _alunoService.RemoverFaltaDoAlunoComId(id, dataFalta);
 
             return RedirectToAction("Informacoes", "Aluno", new { id });
         }
 
         public ActionResult Editar(int id) {
-            var aluno = dao.findById(id);
-            ViewBag.Aluno = aluno;
+            ViewBag.Aluno = _alunoService.BuscarPorId(id);
 
             return View();
         }
@@ -90,7 +87,7 @@ namespace GerenciadorTarefas.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Atualizar(Aluno aluno) {
             if(ModelState.IsValid) {
-                dao.update(aluno);
+                _alunoService.Atualizar(aluno);
                 return RedirectToAction("Listar");
             }
 
@@ -101,7 +98,7 @@ namespace GerenciadorTarefas.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Remover(int id) {
-            dao.delete(id);
+            _alunoService.Remover(id);
             return RedirectToAction("Listar");
         }
     }

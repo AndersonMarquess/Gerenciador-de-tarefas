@@ -2,23 +2,23 @@
 using System;
 using System.Collections.Generic;
 
-namespace GerenciadorTarefas.DAO
-{
-    interface IAlunoDAO {
-        void insert(Aluno aluno);
+namespace GerenciadorTarefas.DAO {
+    public interface IAlunoDAO {
 
-        void update(Aluno aluno);
+        void Cadastrar(Aluno aluno);
 
-        void delete(int id);
+        void Atualizar(Aluno aluno);
 
-        List<Aluno> findAll();
+        void Remover(Aluno aluno);
 
-        Aluno findById(int id);
+        IEnumerable<Aluno> BuscarTodos();
 
-        HashSet<DiarioDePresenca> findAllFaltasByAlunoId(int id);
+        Aluno BuscarPorId(int id);
 
-        void addFaltaAluno(DiarioDePresenca diario);
+        IEnumerable<DiarioDePresenca> BuscarFaltasDoAlunoComId(int id);
 
-        void removerFaltaByAlunoId(int id, DateTime data);
+        void AdicionarFalta(DiarioDePresenca diario);
+
+        void RemoverFaltaDoAlunoComId(int id, DateTime dataDaFalta);
     }
 }
