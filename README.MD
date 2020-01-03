@@ -9,15 +9,23 @@
 
 Trabalho da faculdade (2018) com objetivo de construir um sistema para gerenciar tarefas acadêmicas com alerta em tela quando a data de envio de alguma atividade se aproximar.
 
+## Histórico de versões 📅
+- [v2](https://github.com/AndersonMarquess/Gerenciador-de-tarefas/tree/v2)
+	- Persistência com MySQL, Integração com Entity Framework e adição da camada de serviço.
+- [v1.1](https://github.com/AndersonMarquess/Gerenciador-de-tarefas/tree/v1.1)
+	- Persistêcia com Access.
+
 ## Execução 💻
 
+ - Rode o MySQL na porta padrão com user e password <i>root</i>
  - Abra o projeto com [Visual Studio](https://visualstudio.microsoft.com/pt-br/)
- - Dentro da pasta principal, mova o arquivo "GestaoTarefas.mdb" para área de trabalho
  - Inicie o projeto na IDE
 	- Login padrão:
 		- Login: admin
 		- Senha: admin
 		- Palavra de backup: admin
+	- Crie sua conta:
+		- localhost:{porta}/Administrador/Form
 
 <p align="center">
     <img src="https://i.ibb.co/XYFXwV8/gerenciador-tarefas.gif" align="center" alt="imagem animada do sistema">
@@ -26,7 +34,8 @@ Trabalho da faculdade (2018) com objetivo de construir um sistema para gerenciar
 ## Tecnologias usadas 🛠
 - Back-end
 	- ASP.NET MVC 5
-	- Access
+	- Entity Framework
+	- MySQL
 - Front-end
 	- Razor
 	- HTML
