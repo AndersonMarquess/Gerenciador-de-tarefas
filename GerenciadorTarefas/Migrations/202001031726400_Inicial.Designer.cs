@@ -7,13 +7,13 @@ namespace GerenciadorTarefas.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.0.0-20911")]
-    public sealed partial class Tarefa : IMigrationMetadata
+    public sealed partial class Inicial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Tarefa));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Inicial));
         
         string IMigrationMetadata.Id
         {
-            get { return "202001021925270_Tarefa"; }
+            get { return "202001031726400_Inicial"; }
         }
         
         string IMigrationMetadata.Source
