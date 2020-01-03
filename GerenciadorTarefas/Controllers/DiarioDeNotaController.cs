@@ -1,20 +1,24 @@
-﻿using GerenciadorTarefas.DAO;
-using GerenciadorTarefas.Filtros;
+﻿using GerenciadorTarefas.Filtros;
 using GerenciadorTarefas.Models;
+using GerenciadorTarefas.Services;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
-namespace GerenciadorTarefas.Controllers
-{
+namespace GerenciadorTarefas.Controllers {
+
     [AutorizacaoFilter]
-    public class DiarioDeNotaController : Controller
-    {
-        private IAlunoDAO alunoDAO = new AlunoDAO();
-        private IDiarioDeNotaDAO dao = new DiarioDeNotaDAO();
-        private ITarefaDAO tarefaDAO = new TarefaDAO();
+    public class DiarioDeNotaController : Controller {
+
+        private readonly IDiarioDeNotaService _diarioService;
+        private readonly IAlunoService _alunoService;
+
+        public DiarioDeNotaController(IDiarioDeNotaService diarioService, IAlunoService alunoService) {
+            _diarioService = diarioService;
+            _alunoService = alunoService;
+        }
 
         public ActionResult Index() {
-            ViewBag.Alunos = alunoDAO.findAll();
+            ViewBag.Alunos = _alunoService.BuscarTodos();
             ViewBag.AlunoNome = "";
             ViewBag.Tarefas = new List<Tarefa>();
             ViewBag.IdAluno = -1;
@@ -24,9 +28,9 @@ namespace GerenciadorTarefas.Controllers
 
         public ActionResult BuscarTarefas(int id) {
             ViewBag.IdAluno = id;
-            ViewBag.AlunoNome = alunoDAO.findById(id).Nome;
-            ViewBag.Alunos = alunoDAO.findAll();
-            ViewBag.Tarefas = dao.findTarefasNaoEntreguesDoAluno(id);
+            ViewBag.AlunoNome = _alunoService.BuscarPorId(id).Nome;
+            ViewBag.Alunos = _alunoService.BuscarTodos();
+            ViewBag.Tarefas = _diarioService.BuscarTarefasNaoEntregueDoAlunoComId(id);
 
             return View("Index");
         }
@@ -35,7 +39,7 @@ namespace GerenciadorTarefas.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AtribuirNota(DiarioDeNota diario) {
             if(ModelState.IsValid) {
-                dao.insert(diario);
+                _diarioService.Cadastrar(diario);
                 return RedirectToAction("Index");
             }
             return BuscarTarefas(diario.IdAluno);
@@ -44,7 +48,7 @@ namespace GerenciadorTarefas.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult RemoverNota(int idAluno, int idNota) {
-            dao.remover(idNota);
+            _diarioService.RemoverPorId(idNota);
             return RedirectToAction("Informacoes", "Aluno", new { id = idAluno });
         }
 
@@ -52,7 +56,7 @@ namespace GerenciadorTarefas.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Editar(DiarioDeNota diario) {
             if(ModelState.IsValid) {
-                dao.update(diario);
+                _diarioService.Atualizar(diario);
             }
 
             return RedirectToAction("Informacoes", "Aluno", new { id = diario.IdAluno });

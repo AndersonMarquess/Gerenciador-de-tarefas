@@ -11,5 +11,9 @@ namespace GerenciadorTarefas.DAO {
 
         public DbSet<Administrador> Administrador { get; set; }
         public DbSet<Tarefa> Tarefa { get; set; }
+        public DbSet<Aluno> Aluno { get; set; }
+        public DbSet<Endereco> Endereco { get; set; }
+        public DbSet<DiarioDePresenca> DiarioDePresenca { get; set; }
+        public DbSet<DiarioDeNota> DiarioDeNota { get; set; }
     }
 }

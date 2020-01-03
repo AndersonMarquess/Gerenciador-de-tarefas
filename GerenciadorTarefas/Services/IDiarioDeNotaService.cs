@@ -1,18 +1,18 @@
 ﻿using GerenciadorTarefas.Models;
 using System.Collections.Generic;
 
-namespace GerenciadorTarefas.DAO {
-    public interface IDiarioDeNotaDAO {
-        
-        IEnumerable<Tarefa> BuscarTarefasNaoEntreguesDoAlunoComId(int id);
+namespace GerenciadorTarefas.Services {
+    public interface IDiarioDeNotaService {
 
         IEnumerable<DiarioDeNota> BuscarDiariosDeTarefasEntregueDoAlunoComId(int id);
+        
+        IEnumerable<Tarefa> BuscarTarefasNaoEntregueDoAlunoComId(int id);
 
         void Cadastrar(DiarioDeNota diario);
 
         void Atualizar(DiarioDeNota diario);
 
-        void Remover(DiarioDeNota diario);
+        void RemoverPorId(int id);
 
         DiarioDeNota BuscarPorId(int id);
     }

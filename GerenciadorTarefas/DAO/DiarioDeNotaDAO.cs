@@ -1,71 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
+using System.Data.Entity.Migrations;
+using System.Linq;
 using GerenciadorTarefas.Models;
 
-namespace GerenciadorTarefas.DAO
-{
-    public class DiarioDeNotaDAO : IDiarioDeNotaDAO
-    {
-        private ConexaoDB dao = ConexaoDB.getInstance();
+namespace GerenciadorTarefas.DAO {
+    public class DiarioDeNotaDAO : IDiarioDeNotaDAO {
 
-        public List<Tarefa> findTarefasNaoEntreguesDoAluno(int id) {
-            var tarefas = new List<Tarefa>();
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"SELECT * FROM Tarefas WHERE Tarefas.Concluido = 1 AND Tarefas.Id 
-                                        NOT IN (SELECT IdTarefa FROM DiariosDeNota WHERE DiariosDeNota.IdAluno = @IdAluno)";
-                command.Parameters.AddWithValue("@IdAluno", id);
-                tarefas = dao.queryListaTarefa(command);
-            } catch(Exception) { }
-            return tarefas;
+        private readonly GerenciadorTarefasContext _context;
+
+        public DiarioDeNotaDAO(GerenciadorTarefasContext context) {
+            _context = context;
         }
 
-        public void insert(DiarioDeNota diario) {
-            try {
-
-                var command = new OleDbCommand();
-                command.CommandText = @"INSERT INTO DiariosDeNota (IdAluno, IdTarefa, NotaRecebida, Observacoes) 
-                                        VALUES (@IdAluno, @IdTarefa, @NotaRecebida, @Observacoes)";
-                command.Parameters.AddWithValue("@IdAluno", diario.IdAluno);
-                command.Parameters.AddWithValue("@IdTarefa", diario.IdTarefa);
-                command.Parameters.AddWithValue("@NotaRecebida", diario.NotaRecebida);
-                command.Parameters.AddWithValue("@Observacoes", diario.Observacoes);
-                dao.executarQuerySemRetorno(command);
-            } catch(Exception) { }
+        public void Atualizar(DiarioDeNota diario) {
+            _context.DiarioDeNota.AddOrUpdate(diario);
+            _context.SaveChanges();
         }
 
-        public List<DiarioDeNota> findTarefasEntreguesByAlunoId(int id) {
-            var notas = new List<DiarioDeNota>();
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"SELECT * FROM DiariosDeNota WHERE IdAluno = @IdAluno";
-                command.Parameters.AddWithValue("@IdAluno", id);
-                notas = dao.queryListaNotas(command);
-                return notas;
-            } catch(Exception) { }
-            return notas;
+        public DiarioDeNota BuscarPorId(int id) {
+            return _context.DiarioDeNota.FirstOrDefault(d => d.Id == id);
         }
 
-        public void update(DiarioDeNota diario) {
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"UPDATE DiariosDeNota SET NotaRecebida = @NotaRecebida, Observacoes = @Observacoes 
-                                        WHERE DiariosDeNota.Id = @IdDiario";
-                command.Parameters.AddWithValue("@NotaRecebida", diario.NotaRecebida);
-                command.Parameters.AddWithValue("@Observacoes", diario.Observacoes);
-                command.Parameters.AddWithValue("@IdDiario", diario.Id);
-                dao.executarQuerySemRetorno(command);
-            } catch(Exception) { }
+        public IEnumerable<DiarioDeNota> BuscarDiariosDeTarefasEntregueDoAlunoComId(int idAluno) {
+            if(_context.DiarioDeNota.Any(d => d.IdAluno == idAluno)) {
+                return _context.DiarioDeNota.Where(d => d.IdAluno == idAluno).ToList();
+            } else {
+                return new List<DiarioDeNota>();
+            }
         }
 
-        public void remover(int id) {
-            try {
-                var command = new OleDbCommand();
-                command.CommandText = @"DELETE FROM DiariosDeNota WHERE Id = @IdNota";
-                command.Parameters.AddWithValue("@IdNota", id);
-                dao.executarQuerySemRetorno(command);
-            } catch(Exception) { }
+        public IEnumerable<Tarefa> BuscarTarefasNaoEntreguesDoAlunoComId(int id) {
+            var tarefas = _context.Tarefa.ToList();
+            var tarefasEntregues = BuscarDiariosDeTarefasEntregueDoAlunoComId(id);
+
+            return tarefas.Where(t => !tarefasEntregues.Any(diario => diario.IdTarefa == t.Id)).ToList();
+        }
+
+        public void Cadastrar(DiarioDeNota diario) {
+            _context.DiarioDeNota.Add(diario);
+            _context.SaveChanges();
+        }
+
+        public void Remover(DiarioDeNota diario) {
+            _context.DiarioDeNota.Remove(diario);
+            _context.SaveChanges();
         }
     }
 }
