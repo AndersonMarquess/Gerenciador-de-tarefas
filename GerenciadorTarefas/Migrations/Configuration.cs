@@ -1,5 +1,7 @@
 namespace GerenciadorTarefas.Migrations
 {
+    using GerenciadorTarefas.DAO;
+    using GerenciadorTarefas.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -26,6 +28,14 @@ namespace GerenciadorTarefas.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            AdicionarAdminPadrao(context);
+        }
+
+        private void AdicionarAdminPadrao(GerenciadorTarefasContext context) {
+            var admin = new Administrador("admin", "admin", "admin", "admin");
+            context.Administrador.AddOrUpdate(admin);
+            context.SaveChanges();
         }
     }
 }

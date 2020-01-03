@@ -1,5 +1,4 @@
-﻿using GerenciadorTarefas.Filtros;
-using GerenciadorTarefas.Models;
+﻿using GerenciadorTarefas.Models;
 using GerenciadorTarefas.Services;
 using System.Web.Mvc;
 
@@ -30,7 +29,6 @@ namespace GerenciadorTarefas.Controllers {
             return View("Index");
         }
 
-        [AutorizacaoFilter]
         public ActionResult Form() {
             return View();
         }
