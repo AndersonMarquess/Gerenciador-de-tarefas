@@ -33,8 +33,8 @@ namespace GerenciadorTarefas.Models {
         public Administrador(string nome, string login, string senha, string palavraBackup) {
             Nome = nome;
             Login = login;
-            _senha = senha;
-            _palavraBackup = palavraBackup;
+            Senha = senha;
+            PalavraBackup = palavraBackup;
         }
 
         private string HashString(string value) {
