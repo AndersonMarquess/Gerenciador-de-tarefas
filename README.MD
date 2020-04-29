@@ -18,7 +18,9 @@ Trabalho da faculdade (2018) com objetivo de construir um sistema para gerenciar
 ## Execução 💻
 
  - Rode o MySQL na porta padrão com user e password <i>root</i>
+ 	- Caso deseje alterar as credênciais de acesso ao banco, vá ao Web.config e mude a ConnectionString
  - Abra o projeto com [Visual Studio](https://visualstudio.microsoft.com/pt-br/)
+ 	- Acesse o console do Package Manager e digite: update-database
  - Inicie o projeto na IDE
 	- Login padrão:
 		- Login: admin
